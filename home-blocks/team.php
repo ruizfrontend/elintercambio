@@ -22,10 +22,10 @@
 				</ul>
 
 			</div>
-
-			<?php if($person['foto']): ?>
-				<div class="bl-quienes-img"><img src="<?php echo $person['foto']['url']; ?>" width="<?php echo $person['foto']['width']; ?>" height="<?php echo $person['foto']['height']; ?>" alt="<?php echo $person['foto']['alt']; ?>" title="<?php echo $person['foto']['title']; ?>"></div>
-			<?php endif; ?>
+			
+			<div class="bl-quienes-img">
+				<img src="<?php echo $person['foto']['sizes']['proyect-team']; ?>" width="<?php echo $person['foto']['sizes']['proyect-team-width']; ?>" height="<?php echo $person['foto']['sizes']['proyect-team-height']; ?>" alt="<?php echo $person['foto']['alt']; ?>" title="<?php echo $person['foto']['title']; ?>">
+			</div>
 
 		</div>
 	<?php endforeach; ?>
