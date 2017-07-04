@@ -3,26 +3,33 @@
  * The front page template file
  */
 
+	// inicialización de datos de acf
 include(get_template_directory() . '/initEiio.php');
 
 get_header(); ?>
 
+
 <?php if($projData['isHome']): ?>
 	<div id="main">
 		<?php foreach ($projData['homeData']['bloques'] as $bloque): ?>
-			<div id="<?php echo $bloque['nombre_seccion']; ?>" class="blck <?php echo 'blck-' . $bloque['nombre_seccion'] . ' blck-' . ($bloque['color'] == 'gris' || $bloque['color'] == 'negro' ? 'dark' : 'light') . ' blck-' . $bloque['color']; ?>">
+			
+			<?php $blockClass = 'blck-' . $bloque['nombre_seccion']; // sección como nombre de clase ?>
+			<?php $blockClass .= ' blck-' . ($bloque['color'] == 'gris' || $bloque['color'] == 'negro' ? 'dark' : 'light') . ' blck-' . $bloque['color']; ?>
 
-				<?php if($bloque['fondo']): // imagen del bloque ?>	
+			<div id="<?php echo $bloque['nombre_seccion']; ?>" class="blck <?php echo $blockClass; ?>">
+
+				<?php if($bloque['fondo']): // imagen de fondo de sección ?>	
 					<div class="blck-img">
 						<img src="<?php echo $bloque['fondo']['url']; ?>" width="<?php echo $bloque['fondo']['width']; ?>" height="<?php echo $bloque['fondo']['height']; ?>" alt="<?php echo $bloque['fondo']['alt']; ?>" title="<?php echo $bloque['fondo']['title']; ?>">
 					</div>
 				<?php endif; ?>
 
-				<?php if($bloque['titular_linea1']): // bloque de texto principal ?>
+
+				<?php if($bloque['titular_linea1'] || $bloque['descripcion']): // bloque de texto (siempre necesitamos linea 1) ?>
 
 					<div class="blck-main<?php echo $bloque['fondo'] ? ' blck-fondo' : ''; ?>"><div class="blck-main-wrap">
 						<h2>
-							<div class="hd-l1"><span><?php echo $bloque['titular_linea1']; ?></span></div>
+							<?php if($bloque['titular_linea_1']): ?><div class="hd-l1"><span><?php echo $bloque['titular_linea1']; ?></span></div><?php endif; ?>
 							<?php if($bloque['titular_linea_2']): ?><div class="hd-l2"><span><?php echo $bloque['titular_linea_2']; ?></span></div><?php endif; ?>
 						</h2>
 
@@ -33,12 +40,8 @@ get_header(); ?>
 				<?php endif; ?>
 												
 
-					<?php // bottom page ?>
-				<?php switch($bloque['nombre_seccion']): 
-					case 'Intro': ?>
-						
-					<?php break; ?>
-				
+				<?php switch($bloque['nombre_seccion']): // inclue módulos específicos para las secciones de la home
+					case 'Intro': break; ?>
 
 					<?php case 'que': break; ?>
 
@@ -55,7 +58,7 @@ get_header(); ?>
 				<?php endswitch; ?>
 			</div>
 
-			<?php if($bloque['nombre_seccion'] == 'Intro'): ?>
+			<?php if($bloque['nombre_seccion'] == 'Intro'): // el menú se incluye tras la Intro y tiene que ir fuera de todo el wrap para el sticky ?>
 				<?php include(get_template_directory() . '/menu.php'); ?>
 			<?php endif; ?>
 
