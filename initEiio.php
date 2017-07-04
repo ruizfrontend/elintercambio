@@ -6,7 +6,7 @@ $currentUrl = home_url(add_query_arg(array(),$wp->request));
 $frontpage_id = get_option('page_on_front');
 $homeData = get_fields($frontpage_id);
 
-print_R($homeData);die();
+// print_R($homeData);die();
 
 $projData = array(
 	'homeUrl' => $homeUrl,
