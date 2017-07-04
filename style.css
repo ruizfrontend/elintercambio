@@ -20,6 +20,7 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 
 #main, #menu-wrap { width: 100%; margin: 0 auto; position: relative; } /* max-width: 1300px;  */
 
+	/* menu */
 #menu { height: 90px; background: #5c6068; }
 	.sticky-wrapper { background: #5c6068; }
 	#menu.stuck { position: fixed; width: 100%; left: 0; top: 0; z-index: 10; background: none; }
@@ -59,6 +60,7 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 	.menu-right-wrap { padding-bottom: 1em; }
 }
 
+
 	/* secciones */
 .blck { padding: 0; position: relative; }
 	.blck-negro { background: #2b2d30; color: white; }
@@ -81,6 +83,31 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 .blck-fondo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
 .blck h2 { margin: 0; padding-bottom: 1em; }
+
+
+	/* módulo proyectos */ 
+.bl-proyectos { width: 100%; overflow: hidden; background: #2b2f32; color: white; }
+	.bl-proy-elm { position: relative; }
+		.bl-proy-elm-bg { width: 100%; height: auto; display: block; }
+			.bl-proy-elm-bg img { width: 100%; height: auto; min-width: 1300px; }
+		.bl-proy-elm-bottom { position: absolute; bottom: 0; width: 100%;  }
+		.bl-proy-elm-capturas {  }
+			.bl-proy-elm-capturas img { width: 80%; max-width: 500px; height: auto; margin: 0 auto; display: block; }
+		.bl-proy-elm-text { padding: 0 1em; font-size: 1.2em; line-height: 1.4em; }
+			.bl-proy-elm-text a { color: white; text-decoration: none; }
+			.bl-proy-elm-text h4 { display: inline-block; padding: 0.2em 0.4em; background: #2b2d30; margin: 0 0 0.4em 0; font-size: 1.4em; }
+			.bl-proy-elm-text p { margin: 0 0 0.4em 0; }
+		a.bl-proy-elm-goto { font-size: 0.8em; text-decoration: underline; }
+			a.bl-proy-elm-goto i { padding-right: 0.6em; }
+
+@media (min-width: 900px) { /* menu plegado */
+	.bl-proy-elm-text { font-size: 1.4em; }
+	.bl-proy-elm-text, .bl-proy-elm-capturas { width: 50%; padding: 1em; position: absolute; bottom: 2em; left: 50%; }
+	.bl-proy-elm-capturas { left: 0; }
+	.bl-proy-elm-text { max-width: 600px; }
+}
+
+
 
 	/* módulo slide */ 
 .bl-quienes { display: block; padding: 0; max-width: 100%; overflow: hidden; }
