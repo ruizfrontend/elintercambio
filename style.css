@@ -26,7 +26,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 	#menu.stuck { position: fixed; width: 100%; left: 0; top: 0; z-index: 10; background: none; }
 	#menu-wrap { height: 100%; }
 
-	#menu a { color: white;text-decoration: none; display: inline-block; padding: 1.5em 1em; line-height: 3em; text-transform: uppercase; font-weight: 300;  }
+	#menu a { color: white;text-decoration: none; display: inline-block; padding: 1.5em 1em; line-height: 3em; text-transform: uppercase; font-weight: 300;
+		-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
 	#menu-wrap-inn-white a { color: #333; }
 		#menu a.act { font-weight: 900; }
 
@@ -107,6 +108,7 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 	.bl-proy-elm-text { max-width: 600px; }
 }
 
+.bl-proy-thumbs {  }
 
 
 	/* módulo slide */ 
