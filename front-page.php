@@ -29,7 +29,7 @@ get_header(); ?>
 
 					<div class="blck-main<?php echo $bloque['fondo'] ? ' blck-fondo' : ''; ?>"><div class="blck-main-wrap">
 						<h2>
-							<?php if($bloque['titular_linea_1']): ?><div class="hd-l1"><span><?php echo $bloque['titular_linea1']; ?></span></div><?php endif; ?>
+							<?php if($bloque['titular_linea1']): ?><div class="hd-l1"><span><?php echo $bloque['titular_linea1']; ?></span></div><?php endif; ?>
 							<?php if($bloque['titular_linea_2']): ?><div class="hd-l2"><span><?php echo $bloque['titular_linea_2']; ?></span></div><?php endif; ?>
 						</h2>
 
