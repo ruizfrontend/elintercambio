@@ -95,10 +95,11 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 
 	/* módulo proyectos */ 
 .bl-proyectos { width: 100%; overflow: hidden; background: #2b2f32; color: white; }
+	.bl-proy-main { position: relative; }
 	.bl-proy-elm { position: relative; display: none; }
 			.bl-proy-elm.act { display: block; }
 		.bl-proy-elm-bg { width: 100%; height: auto; display: block; }
-			.bl-proy-elm-bg img { width: 100%; height: auto; min-width: 1300px; }
+			.bl-proy-elm-bg img { width: 100%; height: auto; min-width: 1300px; display: block; }
 		.bl-proy-elm-bottom { position: absolute; bottom: 2em; width: 100%;  }
 		.bl-proy-elm-capturas {  }
 			.bl-proy-elm-capturas img { width: 80%; max-width: 500px; height: auto; margin: 0 auto; display: block; }

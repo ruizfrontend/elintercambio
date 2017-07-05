@@ -25,7 +25,7 @@
 				<?php break; ?>
 
 				<?php case 1: // desarrollo ?>
-					<img style="display: block; margin: 0 auto;" src="<?php echo $projData['homeUrl']; ?>/wp-content/uploads/2017/07/logo-medio-bl.png" alt="">
+					<img style="display: block; margin: 0 auto 1.4em auto;" src="<?php echo $projData['homeUrl']; ?>/wp-content/uploads/2017/07/logo-medio-bl.png" alt="">
 				<?php break; ?>
 
 				<?php case 2: // publicación ?>

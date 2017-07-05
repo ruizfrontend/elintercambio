@@ -23,6 +23,16 @@
           
       },
 
+      ready: function() {
+
+        eiio.initContactForm();
+        eiio.initScroll();
+        eiio.initMenu();
+        eiio.initWaypoints();
+        eiio.initSlides();
+
+      },
+
       handleResize: function() {
 
             // resize sections
@@ -41,8 +51,10 @@
         });
 
           // refresh carousels
+          
 
         Waypoint.refreshAll();
+
       },
 
       form: {
@@ -61,6 +73,12 @@
 
         },
       },
+
+      foldMenu: function() {
+
+          if($('#menu').hasClass('shown')) $('#menu').removeClass('shown').find('.menu-right').stop(false, false).slideUp();
+      },
+
       scrollTo: function(elm) {
         var $target = $(elm);
 
@@ -69,8 +87,10 @@
           return false;
         }
 
+        eiio.foldMenu();
+
         $("html, body").stop(false, false)
-          .animate({ scrollTop: $target.offset().top - 1 }, 500);
+          .animate({ scrollTop: $target.offset().top + 1 }, 500);
 
         // setTimeout(function(){ eiio.updateSect($target); }, 100);
 
@@ -78,7 +98,7 @@
       enableSect: function($actSect) {
 
               // Oculta menu para evitar lios de colores
-          if($('#menu').hasClass('shown')) $('#menu').removeClass('shown').find('.menu-right').stop(false, false).slideUp();
+          eiio.foldMenu();
           
 
               // Alterna CSS 
@@ -115,26 +135,7 @@
 
       },
 
-      ready: function() {
-
-            // formulario
-        $('.mensaje textarea').focusin(function(){
-            var $this = $(this);
-            if($this.val().length) return;
-            $(this).animate({height: 240}, 1000);
-        }).focusout(function(){
-            var $this = $(this);
-            if($this.val().length) return;
-            $(this).animate({height: 30}, 1000);
-        });
-
-
-            // scrool internos
-        $('body').delegate('a[href^="#"]', 'click', function(){
-          eiio.scrollTo($(this).attr('href'));
-          return false;
-        });
-
+      initContactForm: function() {
 
             // target del mail
         $('.bl-quienes-elm .bl-quienes-img').click(function(){
@@ -154,6 +155,53 @@
         });
 
 
+            // formulario
+        $('.mensaje textarea').focusin(function(){
+            var $this = $(this);
+            if($this.val().length) return;
+            $(this).animate({height: 240}, 1000);
+        }).focusout(function(){
+            var $this = $(this);
+            if($this.val().length) return;
+            $(this).animate({height: 30}, 1000);
+        });
+
+      },
+
+      initScroll: function() {
+
+            // scrool internos
+        $('body').delegate('a[href^="#"]', 'click', function(){
+          eiio.scrollTo($(this).attr('href'));
+          return false;
+        });
+      },
+      
+      initSlides: function() {
+
+          // carrusel de proyectos
+        $('.bl-proy-thumb')
+          .hover(function(){
+
+          }, function(){
+
+          })
+          .click(function(){
+            // $()
+          });
+
+
+
+            // slider del equipo
+        var swiperTeam = new Swiper('.swiper-container', {
+            freeMode: true,
+            slidesPerView: 'auto'
+        });
+
+      },
+
+      initMenu: function() {
+
             // menu
         $('.ham').click(function(){
 
@@ -165,13 +213,9 @@
 
             return false;
         });
+      },
 
-
-            // slider del equipo
-        var swiperTeam = new Swiper('.swiper-container', {
-            freeMode: true,
-            slidesPerView: 'auto'
-        });
+      initWaypoints: function() {
 
                 // menu sticky
         var sticky = new Waypoint.Sticky({
@@ -185,7 +229,6 @@
           new Waypoint({
             element: $(this),
             offset: 0,
-            continuous: false,
             handler: function(direction) {
 
         // if(direction == 'down') console.log('down', $(this.element).attr('id'));
@@ -198,8 +241,7 @@
           });
 
         });
-
-    }
+      }
   };
 
   eiio.init();
