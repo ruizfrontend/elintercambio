@@ -29,7 +29,8 @@
         eiio.initScroll();
         eiio.initMenu();
         eiio.initWaypoints();
-        eiio.initSlides();
+        eiio.initSlideProjs();
+        eiio.initSlideTeam();
 
       },
 
@@ -176,8 +177,11 @@
           return false;
         });
       },
-      
-      initSlides: function() {
+
+      initSlideProjs: function() {
+
+        var $act = $('.bl-proy-elm.act');
+        var semaforo = false;
 
           // carrusel de proyectos
         $('.bl-proy-thumb')
@@ -187,17 +191,42 @@
 
           })
           .click(function(){
-            // $()
+            
+            if(semaforo) return;
+
+            var $target = $('.bl-proy-elm:eq(' + $(this).index() + ')');
+            
+            if($target.hasClass('act')) return;
+
+            semaforo = true;
+
+            $('.bl-proy-thumb.act').removeClass('act');
+            $('.bl-proy-thumb:eq(' + $(this).index() + ')').addClass('act');
+
+            $target.addClass('act');
+            $act.addClass('fade');
+
+            eiio.scrollTo('.bl-proy-main');
+
+            setTimeout(function(){
+              $act.removeClass('fade act');
+              $act = $target;
+
+              semaforo = false;
+
+            }, 1000);
           });
 
 
+
+      },
+      initSlideTeam: function() {
 
             // slider del equipo
         var swiperTeam = new Swiper('.swiper-container', {
             freeMode: true,
             slidesPerView: 'auto'
         });
-
       },
 
       initMenu: function() {

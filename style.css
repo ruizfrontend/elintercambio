@@ -96,14 +96,31 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 	/* módulo proyectos */ 
 .bl-proyectos { width: 100%; overflow: hidden; background: #2b2f32; color: white; }
 	.bl-proy-main { position: relative; }
-	.bl-proy-elm { position: relative; display: none; }
-			.bl-proy-elm.act { display: block; }
+	.bl-proy-elm { position: relative; display: none; opacity: 0; overflow: hidden;
+				-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
+			.bl-proy-elm.act { display: block; opacity: 1; }
+				.bl-proy-elm.fade { position: absolute; top: 0; width: 100%; height: 100%; opacity: 0; z-index: 1; }
 		.bl-proy-elm-bg { width: 100%; height: auto; display: block; }
+			.bl-proy-elm-bg { width: 100%; height: auto; display: block; 
+					-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s;
+					-webkit-transform: scale(1);-ms-transform: scale(1);-o-transform: scale(1);transform: scale(1); }
+			    .fade .bl-proy-elm-bg { -webkit-transform: scale(1.1); -ms-transform: scale(1.1); -o-transform: scale(1.1); transform: scale(1.1); }
 			.bl-proy-elm-bg img { width: 100%; height: auto; min-width: 1300px; display: block; }
 		.bl-proy-elm-bottom { position: absolute; bottom: 2em; width: 100%;  }
-		.bl-proy-elm-capturas {  }
 			.bl-proy-elm-capturas img { width: 80%; max-width: 500px; height: auto; margin: 0 auto; display: block; }
-		.bl-proy-elm-text { padding: 0 1em; font-size: 1.2em; line-height: 1.4em; }
+
+		.bl-proy-elm-capturas { padding: 0 1em; font-size: 1.2em; line-height: 1.4em; 
+				-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
+			.act .bl-proy-elm-capturas { -webkit-transform: translateY(0%); -ms-transform: translateY(0%); -o-transform: translateY(0%); transform: translateY(0%);  }
+			.bl-proy-elm-capturas, .fade .bl-proy-elm-capturas {
+			 		-webkit-transform: translateY(20%); -ms-transform: translateY(20%); -o-transform: translateY(20%); transform: translateY(20%); }
+
+
+		.bl-proy-elm-text { padding: 0 1em; font-size: 1.2em; line-height: 1.4em; 
+				-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
+			.act .bl-proy-elm-text { -webkit-transform: translateX(0%); -ms-transform: translateX(0%); -o-transform: translateX(0%); transform: translateX(0%);  }
+			.bl-proy-elm-text, .fade .bl-proy-elm-text {
+			 		-webkit-transform: translateX(100%); -ms-transform: translateX(100%); -o-transform: translateX(100%); transform: translateX(100%); }
 			.bl-proy-elm-text a { color: white; text-decoration: none; }
 			.bl-proy-elm-text h4 { display: inline-block; padding: 0.2em 0.4em; background: #2b2d30; margin: 0 0 0.4em 0; font-size: 1.4em; }
 			.bl-proy-elm-text p { margin: 0 0 0.4em 0; }
@@ -119,11 +136,11 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 
 .bl-proy-thumbs { }
 	.bl-proy-wrap { width: 100%; margin: 0 auto; text-align: center;  }
-	.bl-proy-thumb { position: relative; display: block; float: left; width: 100%; height: 100%; cursor: pointer;
-			-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s;}
+	.bl-proy-thumb { position: relative; display: block; float: left; width: 100%; height: 100%; cursor: pointer; }
 		.bl-proy-thumb h4 span { font-size: 1.8em; color: #333; background: #d5ceba; display: inline-block; padding: 0.1em 0.4em; }
-		.bl-proy-thumb:hover { opacity: 0.5; }
-	.bl-proy-thumb-inn { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+		.bl-proy-thumb img { -webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; opacity: 1; display: block; }
+			.bl-proy-thumb:hover img, .bl-proy-thumb.act img { opacity: 0.5; }
+	.bl-proy-thumb-inn { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 		.bl-proy-thumb img { width: 100%; height: auto; display: block; }
 
 @media (min-width: 740px) {
