@@ -27,3 +27,5 @@ add_image_size( 'proyect-thumbs', 432, 233, true);
 add_image_size( 'proyect-main', 1300, 600, true);
 add_image_size( 'proyect-second', 620, 380, true);
 add_image_size( 'proyect-team', 300, 450, true);
+
+do_action( 'twentysixteen_credits' );

@@ -10,6 +10,9 @@ Theme Name: eiio
 /* start commented backslash hack \*/
 * html .clearfix { height: 1%; }
 .clearfix { display: block; }
+
+.wk-valign { display: table; vertical-align: middle; height: 100%; width: 100%; }
+  .wk-valign-cont { display: table-cell; vertical-align: middle; text-align: center; }
 /* close commented backslash hack */
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
@@ -88,7 +91,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 
 	/* módulo proyectos */ 
 .bl-proyectos { width: 100%; overflow: hidden; background: #2b2f32; color: white; }
-	.bl-proy-elm { position: relative; }
+	.bl-proy-elm { position: relative; display: none; }
+			.bl-proy-elm.act { display: block; }
 		.bl-proy-elm-bg { width: 100%; height: auto; display: block; }
 			.bl-proy-elm-bg img { width: 100%; height: auto; min-width: 1300px; }
 		.bl-proy-elm-bottom { position: absolute; bottom: 0; width: 100%;  }
@@ -109,12 +113,21 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 }
 
 .bl-proy-thumbs {  }
+	.bl-proy-wrap { width: 100%; margin: 0 auto; text-align: center;  }
+	.bl-proy-thumb { display: inline-block; width: 100%; }
+		.bl-proy-thumb img { width: 100%; height: auto; display: block; }
 
+@media (min-width: 600px) {
+	.bl-proy-thumb { width: 50%; }
+}
+@media (min-width: 980px) {
+	.bl-proy-thumb { width: 33%; }
+}
 
 	/* módulo slide */ 
 .bl-quienes { display: block; padding: 0; max-width: 100%; overflow: hidden; }
 	.bl-quienes-wrap { width: 10000px; padding: 0; margin: 0; list-style: none; }
-	.bl-quienes-elm { float: left; position: relative; }
+	.bl-quienes-elm { float: left; position: relative; cursor: pointer; }
 	.bl-quienes-img img { display: block; }
 	.bl-quienes-main { position: absolute; bottom: 4em; height: 7em; width: 100%; text-align: center; padding: 0.8em 0.4em; 
 			background: rgba(12, 11, 11, 0.4); color: white; overflow: hidden; }
@@ -150,7 +163,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 .bl-form { width: 70%; float: left; padding: 0 4em 2em 5em; }
 	.wpcf7-form-control-wrap { margin-bottom: 1.2em; display: block; }
 	.bl-form input, .bl-form textarea { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 1.4em; background: none; border: none; 
-			border-bottom: 1px solid white; width: 100%; margin-bottom: 0; line-height: 1.2em; color: white; resize: none; }
+			border-bottom: 1px solid white; width: 100%; margin-bottom: 0; line-height: 1.2em; color: white; resize: none;
+		    position: relative; z-index: 1;}
 	.bl-form br { display: none; }
 	span.wpcf7-not-valid-tip { font-weight: 900; color: #d5ceba; }
 	input[type="submit"] { background: white; color: #5D6068; display: block; width: 200px; margin: 0 auto; line-height: 1.4em; font-weight: 900; }
@@ -159,6 +173,11 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 		::-moz-placeholder { color: white;}
 		:-ms-input-placeholder { color: white; }
 		:-moz-placeholder { color: white; }
+	
+	#wpcf7-f70-o1 .target { display: inline-block; padding: 0.2em 0.4em; background: #747678; margin: 0 0 0.4em 0; font-size: 1.4em; 
+			-webkit-transition: all 0.4s;-o-transition: all 0.4s;transition: all 0.4s;}
+		#wpcf7-f70-o1 .target:hover { opacity: 0.6; }
+		#wpcf7-f70-o1 .target i { padding-left: 0.4em; }
 
 @media (min-width: 600px) {
   .bl-form .email, .bl-form .nombre { width: 50%; float: left; }

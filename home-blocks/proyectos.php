@@ -1,3 +1,4 @@
+<?php $countProjs = count($projData['homeData']['proyectos']); ?>
 <div class="bl-proyectos clearfix">
 	<div class="bl-proy-main">
 		<?php foreach ($projData['homeData']['proyectos'] as $idx => $proy): ?>
@@ -16,7 +17,9 @@
 
 						<?php if($proy['descripcion']): ?><?php echo $proy['descripcion']; ?><?php endif; ?>
 
-						<?php if($proy['url']): ?><a class="bl-proy-elm-goto" href="<?php echo $proy['url']; ?>"><i class="fa fa-external-link" aria-hidden="true"></i> <?php echo $proy['texto_enlace']; ?></a><?php endif; ?>
+						<?php if($proy['url']): ?><a class="bl-proy-elm-goto" target="_blank" href="<?php echo $proy['url']; ?>">
+							<i class="fa fa-external-link" aria-hidden="true"></i> <?php echo $proy['texto_enlace']; ?>
+						</a><?php endif; ?>
 					</div>
 
 					<div class="bl-proy-elm-capturas">
@@ -27,12 +30,16 @@
 			</div>
 		<?php endforeach; ?>
 	</div>
-	<div class="bl-proy-thumbs clearfix"><div class="bl-proy-wrap">
-		<?php foreach ($projData['homeData']['proyectos'] as $idx => $proy): ?>
-			<div class="bl-proy-thumb">
-				<h4><?php echo $proy['titulo_corto'] ? $proy['titulo_corto'] : $proy['titulo']; ?></h4>
-				<img src="<?php echo $proy['thumb']['sizes']['proyect-thumbs']; ?>" width="<?php echo $proy['thumb']['sizes']['proyect-thumbs-width']; ?>" height="<?php echo $proy['thumb']['sizes']['proyect-thumbs-height']; ?>" alt="<?php echo $proy['thumb']['alt']; ?>">
-			</div>
-		<?php endforeach; ?>
-	</div></div>
+
+	<?php if ($countProjs > 1): ?>
+		<div class="bl-proy-thumbs clearfix"><div class="bl-proy-wrap">
+			<?php foreach ($projData['homeData']['proyectos'] as $idx => $proy): ?>
+				<?php if($idx != 0): ?>--><?php endif; ?><div class="bl-proy-thumb">
+					<div class="wk-valign"><h4 class="wk-valign-cont"><?php echo $proy['titulo_corto'] ? $proy['titulo_corto'] : $proy['titulo']; ?></h4></div>
+					<img src="<?php echo $proy['thumb']['sizes']['proyect-thumbs']; ?>" width="<?php echo $proy['thumb']['sizes']['proyect-thumbs-width']; ?>" height="<?php echo $proy['thumb']['sizes']['proyect-thumbs-height']; ?>" alt="<?php echo $proy['thumb']['alt']; ?>">
+				</div><?php if($idx < $countProjs - 1): ?><!--<?php endif; ?>
+			<?php endforeach; ?>
+		</div></div>
+
+	<?php endif ?>
 </div>

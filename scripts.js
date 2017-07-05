@@ -23,16 +23,38 @@
 
       },
 
+      form: {
+        setTarget: function (name) {
+
+            // hidden field
+          $('#wpcf7-f70-o1 input[name="target"]').val(name);
+            
+            // draw tag
+          $target = $('#wpcf7-f70-o1').find('.target');
+          if(!$target.length) {
+            $('#wpcf7-f70-o1').prepend('<div class="target">Envío para: <span>' + name + '</span><i class="fa fa-times" aria-hidden="true"></i></target>');
+          } else {
+            $target.find('span').text(name);
+          }
+
+        },
+      },
+      scrollTo: function(elm) {
+        var $target = $(elm);
+
+        if(!$target.length) {
+          console.log('no se encontró el target');
+          return false;
+        }
+
+        $("html, body").stop(false, false)
+          .animate({ scrollTop: $target.offset().top }, 500);
+
+      },
+
       ready: function() {
 
-            // slider del equipo
-        var swiper = new Swiper('.swiper-container', {
-            freeMode: true,
-            slidesPerView: 'auto'
-        });
-
-
-            // desplegable textarea
+            // formulario
         $('.mensaje textarea').focusin(function(){
             var $this = $(this);
             if($this.val().length) return;
@@ -43,16 +65,46 @@
             $(this).animate({height: 30}, 1000);
         });
 
+            // target del mail
+        $('.bl-quienes-elm .bl-quienes-img').click(function(){
+          eiio.form.setTarget($(this).siblings('.bl-quienes-main').find('h4').text());
+          eiio.scrollTo('#contacto');
+        });
+
+        $('.bl-quienes-elm .follow-contact').click(function(){
+          eiio.form.setTarget($(this).parents('.bl-quienes-main').find('h4').text());
+          eiio.scrollTo('#contacto');
+          return false;
+        });
+
+        $('#wpcf7-f70-o1').delegate('.target', 'click', function(){
+          $(this).remove();
+          $('#wpcf7-f70-o1 input[name="target"]').val('');
+        });
+
 
             // menu
         $('.ham').click(function(){
-            $('#menu .menu-right').stop(false, false).slideToggle();
+
+            if($('#menu').hasClass('shown')) {
+              $('#menu').removeClass('shown').find('.menu-right').stop(false, false).slideUp();
+            } else {
+              $('#menu').addClass('shown').find('.menu-right').stop(false, false).slideDown();
+            }
+
             return false;
         });
 
                 // menu sticky
         var sticky = new Waypoint.Sticky({
           element: $('#menu')[0]
+        });
+
+
+            // slider del equipo
+        var swiper = new Swiper('.swiper-container', {
+            freeMode: true,
+            slidesPerView: 'auto'
         });
 
 
