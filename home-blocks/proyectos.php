@@ -35,7 +35,7 @@
 		<div class="bl-proy-thumbs clearfix"><div class="bl-proy-wrap">
 			<?php foreach ($projData['homeData']['proyectos'] as $idx => $proy): ?>
 				<?php if($idx != 0): ?>--><?php endif; ?><div class="bl-proy-thumb">
-					<div class="wk-valign"><h4 class="wk-valign-cont"><?php echo $proy['titulo_corto'] ? $proy['titulo_corto'] : $proy['titulo']; ?></h4></div>
+					<div class="bl-proy-thumb-inn"><div class="wk-valign"><h4 class="wk-valign-cont"><span><?php echo $proy['titulo_corto'] ? $proy['titulo_corto'] : $proy['titulo']; ?></span></h4></div></div>
 					<img src="<?php echo $proy['thumb']['sizes']['proyect-thumbs']; ?>" width="<?php echo $proy['thumb']['sizes']['proyect-thumbs-width']; ?>" height="<?php echo $proy['thumb']['sizes']['proyect-thumbs-height']; ?>" alt="<?php echo $proy['thumb']['alt']; ?>">
 				</div><?php if($idx < $countProjs - 1): ?><!--<?php endif; ?>
 			<?php endforeach; ?>

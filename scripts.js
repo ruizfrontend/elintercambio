@@ -4,10 +4,14 @@
     window.eiio = {
       cache: {
         responsive: false,
+        window: null,
+        sliderTeam: null,
+        sliderProjs: null
       },
       init: function() {
 
-        $(window).bind('orientationchange resize', throttle(eiio.handleResize, 200)).resize();
+        eiio.cache.window = $(window);
+        eiio.cache.window.bind('orientationchange resize', throttle(eiio.handleResize, 200)).resize();
         
         eiio.ready();
 
@@ -15,12 +19,30 @@
 
         } else {
 
-        };
+        }
           
       },
 
       handleResize: function() {
 
+            // resize sections
+        $('#Intro, #que, #quienes, #whom').each(function(){
+          
+          var $this = $(this).css('min-height', eiio.cache.window.height());
+          var h = $this.height();
+          
+
+          $this.find('.blck-inn').each(function(){
+            var $this = $(this);
+            var hIn = $this.height();
+            $this.css('top', hIn < h ? (h - hIn) / 2 : 0);
+          });
+
+        });
+
+          // refresh carousels
+
+        Waypoint.refreshAll();
       },
 
       form: {
@@ -48,7 +70,48 @@
         }
 
         $("html, body").stop(false, false)
-          .animate({ scrollTop: $target.offset().top }, 500);
+          .animate({ scrollTop: $target.offset().top - 1 }, 500);
+
+        // setTimeout(function(){ eiio.updateSect($target); }, 100);
+
+      },
+      enableSect: function($actSect) {
+
+              // Oculta menu para evitar lios de colores
+          if($('#menu').hasClass('shown')) $('#menu').removeClass('shown').find('.menu-right').stop(false, false).slideUp();
+          
+
+              // Alterna CSS 
+          if($actSect.hasClass('blck-light')){
+              $('#menu').addClass('menu-light');
+          } else {
+              $('#menu').removeClass('menu-light');
+          }
+
+          var id = $actSect.attr('id');
+
+              // Activa enlace de la sección actual
+          $('#menu')
+              .find('.act').removeClass('act').end()
+              .find('[href*=' + id + ']').addClass('act');
+
+
+                  // anima títulos de sección
+          if(!$actSect.hasClass('titleFx') && $actSect.find('.hd-l2').length) {
+              
+              $actSect.addClass('titleFx');
+
+              var $elm = $actSect.find('.hd-l2 span');
+              var $clon = $elm.clone();
+              
+              $clon
+                  .appendTo($elm)
+                  .wrap('<div class="hd-l2-wrap"></div>');
+
+              $actSect.find('.hd-l2-wrap')
+                  .find('span').css('width', $elm.outerWidth()).end()
+                  .css({width: 0}).animate({ width: $elm.outerWidth()}, 1000);
+          }
 
       },
 
@@ -64,6 +127,14 @@
             if($this.val().length) return;
             $(this).animate({height: 30}, 1000);
         });
+
+
+            // scrool internos
+        $('body').delegate('a[href^="#"]', 'click', function(){
+          eiio.scrollTo($(this).attr('href'));
+          return false;
+        });
+
 
             // target del mail
         $('.bl-quienes-elm .bl-quienes-img').click(function(){
@@ -95,16 +166,16 @@
             return false;
         });
 
+
+            // slider del equipo
+        var swiperTeam = new Swiper('.swiper-container', {
+            freeMode: true,
+            slidesPerView: 'auto'
+        });
+
                 // menu sticky
         var sticky = new Waypoint.Sticky({
           element: $('#menu')[0]
-        });
-
-
-            // slider del equipo
-        var swiper = new Swiper('.swiper-container', {
-            freeMode: true,
-            slidesPerView: 'auto'
         });
 
 
@@ -113,49 +184,14 @@
 
           new Waypoint({
             element: $(this),
-            offset: 90,
+            offset: 0,
+            continuous: false,
             handler: function(direction) {
 
         // if(direction == 'down') console.log('down', $(this.element).attr('id'));
         // return;
-              var $actSect = $(this.element);
 
-                  // Oculta menu para evitar lios de colores
-              if($('#menu').hasClass('shown')) $('#menu').removeClass('shown').find('.menu-right').stop(false, false).slideUp();
-              
-
-                  // Alterna CSS 
-              if($actSect.hasClass('blck-light')){
-                  $('#menu').addClass('menu-light');
-              } else {
-                  $('#menu').removeClass('menu-light');
-              }
-
-              var id = $actSect.attr('id');
-
-
-                  // Activa enlace de la sección actual
-              $('#menu')
-                  .find('.act').removeClass('act').end()
-                  .find('[href*=' + id + ']').addClass('act');
-
-
-                      // anima títulos de sección
-              if(!$actSect.hasClass('titleFx') && $actSect.find('.hd-l2').length) {
-                  
-                  $actSect.addClass('titleFx');
-
-                  var $elm = $actSect.find('.hd-l2 span');
-                  var $clon = $elm.clone();
-                  
-                  $clon
-                      .appendTo($elm)
-                      .wrap('<div class="hd-l2-wrap"></div>');
-
-                  $actSect.find('.hd-l2-wrap')
-                      .find('span').css('width', $elm.outerWidth()).end()
-                      .css({width: 0}).animate({ width: $elm.outerWidth()}, 1000);
-              }
+              eiio.enableSect($(this.element));
 
             }
 

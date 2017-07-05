@@ -11,12 +11,15 @@ Theme Name: eiio
 * html .clearfix { height: 1%; }
 .clearfix { display: block; }
 
+
 .wk-valign { display: table; vertical-align: middle; height: 100%; width: 100%; }
   .wk-valign-cont { display: table-cell; vertical-align: middle; text-align: center; }
 /* close commented backslash hack */
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
+
 /* Aquí empieza lo bueno */ 
+body { overflow-x: hidden; }
 body, .ft-lato { font-family: 'Lato', sans-serif; font-weight: 300; }
 
 h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
@@ -67,6 +70,7 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 
 	/* secciones */
 .blck { padding: 0; position: relative; }
+	.blck-inn { position: relative; }
 	.blck-negro { background: #2b2d30; color: white; }
 	.blck-gris { background: #5c6068; color: white; }
 	.blck-amarillo { background: #d5ceba; color: black; }
@@ -81,10 +85,10 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 		.blck-dark .hd-l2-wrap span { background: #d5ceba; color: #353637; }
 
 .blck-main { width: 100%; margin: 0 auto; }
-	.blck-main-wrap { max-width: 800px; padding: 4em 2em 2em 2em; margin: 0 auto; }
+	.blck-main-wrap { max-width: 800px; padding: 4em 2em 2em 2em; margin: 0 auto; position: relative; }
 	.blck-main p { font-size: 1.2em; }
 
-.blck-fondo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+/*.blck-fondo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }*/
 
 .blck h2 { margin: 0; padding-bottom: 1em; }
 
@@ -95,7 +99,7 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 			.bl-proy-elm.act { display: block; }
 		.bl-proy-elm-bg { width: 100%; height: auto; display: block; }
 			.bl-proy-elm-bg img { width: 100%; height: auto; min-width: 1300px; }
-		.bl-proy-elm-bottom { position: absolute; bottom: 0; width: 100%;  }
+		.bl-proy-elm-bottom { position: absolute; bottom: 2em; width: 100%;  }
 		.bl-proy-elm-capturas {  }
 			.bl-proy-elm-capturas img { width: 80%; max-width: 500px; height: auto; margin: 0 auto; display: block; }
 		.bl-proy-elm-text { padding: 0 1em; font-size: 1.2em; line-height: 1.4em; }
@@ -112,16 +116,20 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 	.bl-proy-elm-text { max-width: 600px; }
 }
 
-.bl-proy-thumbs {  }
+.bl-proy-thumbs { }
 	.bl-proy-wrap { width: 100%; margin: 0 auto; text-align: center;  }
-	.bl-proy-thumb { display: inline-block; width: 100%; }
+	.bl-proy-thumb { position: relative; display: block; float: left; width: 100%; height: 100%; cursor: pointer;
+			-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s;}
+		.bl-proy-thumb h4 span { font-size: 1.8em; color: #333; background: #d5ceba; display: inline-block; padding: 0.1em 0.4em; }
+		.bl-proy-thumb:hover { opacity: 0.5; }
+	.bl-proy-thumb-inn { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 		.bl-proy-thumb img { width: 100%; height: auto; display: block; }
 
-@media (min-width: 600px) {
+@media (min-width: 740px) {
 	.bl-proy-thumb { width: 50%; }
 }
 @media (min-width: 980px) {
-	.bl-proy-thumb { width: 33%; }
+	.bl-proy-thumb { width: 33.3333%; }
 }
 
 	/* módulo slide */ 
@@ -137,9 +145,10 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 		.bl-quienes-social li { display: inline-block; padding: 0 0.1em; }
 		.bl-quienes-social a { color: white; }
 
+.bl-contacto { width: 100%; max-width: 1200px; margin: 0 auto; }
 .bl-contacto-map img { width: 100%; max-width: 100%; }
-
-.blck-img img { width: 100%; max-width: 100%; height: auto; display: block; }
+.blck-img { position: relative; }
+	.blck-img img { width: 100%; max-width: 100%; height: auto; display: block; }
 
 
 .bl-aliados { padding: 2em; }
