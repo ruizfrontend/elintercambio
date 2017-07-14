@@ -1,26 +1,39 @@
 (function($) {
 
     window.$ = jQuery;
+
     window.eiio = {
       cache: {
-        responsive: false,
         window: null,
-        sliderTeam: null,
-        sliderProjs: null
+        wWidth: 0,
+        wHeight: 0,
+        teamSlider: null,
+        projsSlider: null,
+        firstLoad: true
       },
+
       init: function() {
 
-        eiio.cache.window = $(window);
-        eiio.cache.window.bind('orientationchange resize', throttle(eiio.handleResize, 200)).resize();
+        eiio.cache.window = $(window)
+          .bind('orientationchange resize', throttle(eiio.handleResize, 200)).resize();
         
         eiio.ready();
-
-        if(!eiio.cache.responsive) {
-
-        } else {
-
-        }
           
+      },
+
+      handleResize: function() {
+
+        eiio.cache.wHeight = eiio.cache.window.height();
+        eiio.cache.wWidth = eiio.cache.window.width();
+
+        eiio.resizeSlides();
+        eiio.resizeProjs();
+        eiio.resizeSlideTeam();
+
+        Waypoint.refreshAll();
+
+          // el código ya ha ekecutado handleResize 1 vez y ready => ejecución normal
+        eiio.cache.firstLoad = false;
       },
 
       ready: function() {
@@ -29,12 +42,11 @@
         eiio.initScroll();
         eiio.initMenu();
         eiio.initWaypoints();
-        eiio.initSlideProjs();
-        eiio.initSlideTeam();
+        eiio.initProjs();
 
       },
 
-      handleResize: function() {
+      resizeSlides: function() {
 
             // resize sections
         $('#Intro, #que, #quienes, #whom').each(function(){
@@ -50,11 +62,6 @@
           });
 
         });
-
-          // refresh carousels
-          
-
-        Waypoint.refreshAll();
 
       },
 
@@ -178,18 +185,14 @@
         });
       },
 
-      initSlideProjs: function() {
+        // inicializa los efectos del slide de proyectos (el carrusel de thumbs va en resizeProjs)
+      initProjs: function() {
 
         var $act = $('.bl-proy-elm.act');
         var semaforo = false;
 
           // carrusel de proyectos
         $('.bl-proy-thumb')
-          .hover(function(){
-
-          }, function(){
-
-          })
           .click(function(){
             
             if(semaforo) return;
@@ -217,16 +220,80 @@
             }, 1000);
           });
 
+      },
 
+        // lanza el carrusel de thumbs de proyectos o lo destruye en función del tamaño de página
+      resizeProjs: function() {
+
+        var $thumbs = $('#portfolio .bl-proy-thumb');
+
+        if(eiio.cache.wWidth > 1200) {
+          $thumbs.width(Math.floor(eiio.cache.wWidth / 3));
+        } else if(eiio.cache.wWidth > 800) {
+          $thumbs.width(Math.floor(eiio.cache.wWidth / 2));
+        } else {
+          $thumbs.width(eiio.cache.wWidth);
+        }
+
+          // los elementos ocupan más que la pantalla => lanza el slide
+        if($thumbs.length * $thumbs.eq(0).width() > eiio.cache.wWidth) {
+              // inicia slider
+          if(!eiio.cache.projsSlider) {
+
+            $('.bl-proy-wrap').width(10000);
+            
+            eiio.cache.projsSlider = new Swiper('.bl-proy-thumbs', {
+                freeMode: true,
+                slidesPerView: 'auto',
+                nextButton: '#portfolio .swiper-button-next',
+                prevButton: '#portfolio .swiper-button-prev',
+            });
+          }
+
+          eiio.cache.projsSlider.update();
+
+            // sobre espacio => borra slide y centra!
+        } else {
+
+          if(eiio.cache.projsSlider) {
+            eiio.cache.projsSlider.destroy(true, true);
+            eiio.cache.projsSlider = null;
+          }
+        }
 
       },
-      initSlideTeam: function() {
 
-            // slider del equipo
-        var swiperTeam = new Swiper('.swiper-container', {
-            freeMode: true,
-            slidesPerView: 'auto'
-        });
+        // lanza el carrusel de equipo o lo destruye en función del tamaño de página
+      resizeSlideTeam: function() {
+
+        var $people = $('.bl-quienes-elm');
+
+          // los elementos ocupan más que la pantalla => lanza el slide
+        if($people.length * $people.eq(0).width() > eiio.cache.wWidth) {
+          
+          if(!eiio.cache.teamSlider) {
+            $('.swiper-wrapper').width(10000);
+            eiio.cache.teamSlider = new Swiper('.bl-quienes', {
+                freeMode: true,
+                slidesPerView: 'auto',
+                nextButton: '#quienes .swiper-button-next',
+                prevButton: '#quienes .swiper-button-prev',
+            });
+            $('.bl-quienes').removeClass('bl-quienes-centered');
+          }
+
+        } else {
+
+          if(eiio.cache.teamSlider || eiio.cache.firstLoad) {
+            
+            if(eiio.cache.teamSlider) eiio.cache.teamSlider.destroy(true, true);
+            eiio.cache.teamSlider = null;
+            $('.swiper-wrapper').width($people.length * $people.eq(0).width());
+            $('.bl-quienes').addClass('bl-quienes-centered');
+          }
+
+        }
+
       },
 
       initMenu: function() {

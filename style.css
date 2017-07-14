@@ -87,7 +87,11 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 .blck-main { width: 100%; margin: 0 auto; }
 	.blck-main-wrap { max-width: 800px; padding: 4em 2em 2em 2em; margin: 0 auto; position: relative; }
 	.blck-main p { font-size: 1.2em; }
-
+@media (max-width: 900px) { 
+	.blck-main-wrap {
+	    padding-top: 6em;
+	}
+}
 /*.blck-fondo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }*/
 
 .blck h2 { margin: 0; padding-bottom: 1em; }
@@ -134,7 +138,7 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 	.bl-proy-elm-text { max-width: 600px; }
 }
 
-.bl-proy-thumbs { }
+.bl-proy-thumbs { position: relative; }
 	.bl-proy-wrap { width: 100%; margin: 0 auto; text-align: center;  }
 	.bl-proy-thumb { position: relative; display: block; float: left; width: 100%; height: 100%; cursor: pointer; }
 		.bl-proy-thumb h4 span { font-size: 1.8em; color: #333; background: #d5ceba; display: inline-block; padding: 0.1em 0.4em; }
@@ -142,6 +146,12 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 			.bl-proy-thumb:hover img, .bl-proy-thumb.act img { opacity: 0.5; }
 	.bl-proy-thumb-inn { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 		.bl-proy-thumb img { width: 100%; height: auto; display: block; }
+
+.bl-proy-thumbs .swiper-button-prev, .bl-proy-thumbs .swiper-button-next{ display: none; }
+		.swiper-container-horizontal .swiper-button-prev, .swiper-container-horizontal .swiper-button-next { display: block; }
+	.bl-proy-thumbs .swiper-button-prev, .bl-proy-thumbs .swiper-button-next { height: 30px; width: 30px; float: left; clear: both; color: #333;
+			position: absolute; top: 50%; margin-top: -15px; right: 0; z-index: 1; font-size: 1.5em; text-align: center; }
+		.bl-proy-thumbs .swiper-button-prev { left: 0; }
 
 @media (min-width: 740px) {
 	.bl-proy-thumb { width: 50%; }
@@ -151,8 +161,9 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 }
 
 	/* módulo slide */ 
-.bl-quienes { display: block; padding: 0; max-width: 100%; overflow: hidden; }
+.bl-quienes { display: block; padding: 0; max-width: 100%; overflow: hidden; position: relative; }
 	.bl-quienes-wrap { width: 10000px; padding: 0; margin: 0; list-style: none; }
+			.bl-quienes-centered .bl-quienes-wrap { width: auto; margin: 0 auto; }
 	.bl-quienes-elm { float: left; position: relative; cursor: pointer; }
 	.bl-quienes-img img { display: block; }
 	.bl-quienes-main { position: absolute; bottom: 4em; height: 7em; width: 100%; text-align: center; padding: 0.8em 0.4em; 
@@ -162,6 +173,13 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 	.bl-quienes-social { padding: 0.4em 0; font-size: 1.1em; }
 		.bl-quienes-social li { display: inline-block; padding: 0 0.1em; }
 		.bl-quienes-social a { color: white; }
+
+.bl-quienes .swiper-button-prev, .bl-quienes .swiper-button-next{ display: none; }
+		.swiper-container-horizontal .swiper-button-prev, .swiper-container-horizontal .swiper-button-next { display: block; }
+	.bl-quienes .swiper-button-prev, .bl-quienes .swiper-button-next { height: 30px; width: 30px; float: left; clear: both; color: white;
+			position: absolute; bottom: 105px; margin-top: -15px; right: 0; z-index: 1; font-size: 1.5em; text-align: center; }
+		.bl-quienes .swiper-button-prev { left: 0; }
+
 
 .bl-contacto { width: 100%; max-width: 1200px; margin: 0 auto; }
 .bl-contacto-map img { width: 100%; max-width: 100%; }

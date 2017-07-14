@@ -8,7 +8,7 @@
 
 					<?php if ($elm['nombre'] == 'Home'): ?>
 						<a class="<?php echo $projData['isHome'] ? 'act' : ''; ?>" href="<?php echo $projData['homeUrl']; ?>">
-							<img src="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/logo-white.png" alt="">
+							<img src="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/logo-white-bis.png" alt="">
 						</a>
 					<?php endif ?>
 				<?php endforeach; ?>
@@ -30,7 +30,7 @@
 
 					<?php if ($elm['nombre'] == 'Home'): ?>
 						<a class="<?php echo $projData['isHome'] ? 'act' : ''; ?>" href="<?php echo $projData['homeUrl']; ?>">
-							<img src="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/logo-black.png" alt="">
+							<img src="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/logo-black-bis-bis.png" alt="">
 						</a>
 					<?php endif ?>
 				<?php endforeach; ?>

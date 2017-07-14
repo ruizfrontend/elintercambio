@@ -33,14 +33,18 @@
 		</div>
 
 		<?php if ($countProjs > 1): ?>
-			<div class="bl-proy-thumbs clearfix"><div class="bl-proy-wrap">
-				<?php foreach ($projData['homeData']['proyectos'] as $idx => $proy): ?>
-					<?php if($idx != 0): ?>--><?php endif; ?><div class="bl-proy-thumb">
-						<div class="bl-proy-thumb-inn"><div class="wk-valign"><h4 class="wk-valign-cont"><span><?php echo $proy['titulo_corto'] ? $proy['titulo_corto'] : $proy['titulo']; ?></span></h4></div></div>
-						<img src="<?php echo $proy['thumb']['sizes']['proyect-thumbs']; ?>" width="<?php echo $proy['thumb']['sizes']['proyect-thumbs-width']; ?>" height="<?php echo $proy['thumb']['sizes']['proyect-thumbs-height']; ?>" alt="<?php echo $proy['thumb']['alt']; ?>">
-					</div><?php if($idx < $countProjs - 1): ?><!--<?php endif; ?>
-				<?php endforeach; ?>
-			</div></div>
+			<div class="bl-proy-thumbs swiper-container">
+				<div class="bl-proy-wrap swiper-wrapper clearfix">
+					<?php foreach ($projData['homeData']['proyectos'] as $idx => $proy): ?>
+						<?php if($idx != 0): ?>--><?php endif; ?><div class="bl-proy-thumb swiper-slide">
+							<div class="bl-proy-thumb-inn"><div class="wk-valign"><h4 class="wk-valign-cont"><span><?php echo $proy['titulo_corto'] ? $proy['titulo_corto'] : $proy['titulo']; ?></span></h4></div></div>
+							<img src="<?php echo $proy['thumb']['sizes']['proyect-thumbs']; ?>" width="<?php echo $proy['thumb']['sizes']['proyect-thumbs-width']; ?>" height="<?php echo $proy['thumb']['sizes']['proyect-thumbs-height']; ?>" alt="<?php echo $proy['thumb']['alt']; ?>">
+						</div><?php if($idx < $countProjs - 1): ?><!--<?php endif; ?>
+					<?php endforeach; ?>
+				</div>
+			    <div class="swiper-button-prev" title="anterior proyecto"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></div>
+			    <div class="swiper-button-next" title="siguiente proyecto"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
+			</div>
 
 		<?php endif ?>
 	</div>
