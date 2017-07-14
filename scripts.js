@@ -63,6 +63,13 @@
 
         });
 
+        var $quienes = $('#quienes');
+        if($quienes.height() > ($quienes.find('.blck-main').height() + $quienes.find('.bl-quienes').height())) {
+          $quienes.addClass('quienes-bottom');
+        } else {
+          $quienes.removeClass('quienes-bottom');
+        }
+
       },
 
       form: {
@@ -247,6 +254,7 @@
                 slidesPerView: 'auto',
                 nextButton: '#portfolio .swiper-button-next',
                 prevButton: '#portfolio .swiper-button-prev',
+                width: eiio.cache.wWidth
             });
           }
 
@@ -256,6 +264,9 @@
         } else {
 
           if(eiio.cache.projsSlider) {
+            
+            $('.bl-proy-wrap').width($thumbs.length * $thumbs.eq(0).width() );
+
             eiio.cache.projsSlider.destroy(true, true);
             eiio.cache.projsSlider = null;
           }

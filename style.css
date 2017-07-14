@@ -162,6 +162,7 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 
 	/* módulo slide */ 
 .bl-quienes { display: block; padding: 0; max-width: 100%; overflow: hidden; position: relative; }
+		.quienes-bottom .blck-inn { top: initial!important; bottom: 0; position: absolute; width: 100%; }
 	.bl-quienes-wrap { width: 10000px; padding: 0; margin: 0; list-style: none; }
 			.bl-quienes-centered .bl-quienes-wrap { width: auto; margin: 0 auto; }
 	.bl-quienes-elm { float: left; position: relative; cursor: pointer; }
