@@ -9,41 +9,41 @@
         wHeight: 0,
         teamSlider: null,
         projsSlider: null,
-        firstLoad: true
+        firstLoad: true,
+        responsive: false
       },
 
       init: function() {
 
-        eiio.cache.window = $(window)
-          .bind('orientationchange resize', throttle(eiio.handleResize, 200)).resize();
+        eiio.cache.window = $(window);
+        eiio.cache.window.bind('orientationchange resize', throttle(eiio.handleResize, 200, true)).resize();
         
-        eiio.ready();
-          
-      },
-
-      handleResize: function() {
-
-        eiio.cache.wHeight = eiio.cache.window.height();
-        eiio.cache.wWidth = eiio.cache.window.width();
-
-        eiio.resizeSlides();
-        eiio.resizeProjs();
-        eiio.resizeSlideTeam();
-
-        Waypoint.refreshAll();
-
-          // el código ya ha ekecutado handleResize 1 vez y ready => ejecución normal
-        eiio.cache.firstLoad = false;
-      },
-
-      ready: function() {
-
         eiio.initContactForm();
         eiio.initScroll();
         eiio.initMenu();
         eiio.initWaypoints();
         eiio.initProjs();
 
+        Waypoint.refreshAll();
+
+          // Inicialización concluida
+        eiio.cache.firstLoad = false;
+          
+      },
+
+      handleResize: function() {
+
+        var newW = eiio.cache.window.width();
+        if(newW == eiio.cache.wWidth) return; // evita resize con los cambio de tamaños de navegadores móviles
+
+        eiio.cache.wWidth = eiio.cache.window.width();
+        eiio.cache.wHeight = eiio.cache.window.height();
+
+        eiio.cache.responsive = eiio.cache.wWidth < 800 ? true : false;
+
+        eiio.resizeSlides();
+        eiio.resizeProjs();
+        eiio.resizeSlideTeam();
       },
 
       resizeSlides: function() {
@@ -254,7 +254,7 @@
                 slidesPerView: 'auto',
                 nextButton: '#portfolio .swiper-button-next',
                 prevButton: '#portfolio .swiper-button-prev',
-                width: eiio.cache.wWidth
+                setWrapperSize: false
             });
           }
 
@@ -271,6 +271,10 @@
             eiio.cache.projsSlider = null;
           }
         }
+        setTimeout(function(){
+
+            $('.bl-proy-wrap').width($thumbs.length * $thumbs.eq(0).width() );
+          }, 400)
 
       },
 
@@ -365,7 +369,7 @@ window.requestAnimFrame = (function(){
           };
 })();
 
-function throttle (callback, limit) {   // http://sampsonblog.com/749/simple-throttle-function modificado!
+function debounce (callback, limit) {   // http://sampsonblog.com/749/simple-throttle-function modificado!
     var wait = false;                 // Initially, we're not waiting
     return function () {              // We return a throttled function
         if (!wait) {                  // If we're not waiting
@@ -378,7 +382,28 @@ function throttle (callback, limit) {   // http://sampsonblog.com/749/simple-thr
         }
     }
 }
+function throttle(func, wait, immediate) {
 
+  var timeout;
+  
+  return function() {
+  
+    var context = this, args = arguments;
+  
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+  
+    var callNow = immediate && !timeout;
+  
+    clearTimeout(timeout);
+  
+    timeout = setTimeout(later, wait);
+  
+    if (callNow) func.apply(context, args);
+  };
+};
 
 
 //      new Waypoint({
