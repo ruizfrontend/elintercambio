@@ -20,7 +20,6 @@
         eiio.cache.window.bind('scroll', eiio.handleScroll);
         
           /** inicializaciones */
-        eiio.canvas.init();
         eiio.initContactForm();
         eiio.initScroll();
         eiio.initMenu();
@@ -42,6 +41,8 @@
         eiio.cache.wWidth = eiio.cache.window.width();
         eiio.cache.wHeight = eiio.cache.window.height();
 
+        eiio.canvas.update();
+
         eiio.cache.responsive = eiio.cache.wWidth < 800 ? true : false;
 
         eiio.resizeSlides();
@@ -51,16 +52,16 @@
 
       handleScroll: function() {
 
-        eiio.canvas.update();
+        eiio.canvas.scroll();
 
       },
 
       resizeSlides: function() {
 
             // resize sections
-        $('#Intro, #que, #quienes, #whom, .slide-home, #homeCanvas').each(function(){
+        $('#Intro, #que, #quienes, #whom, .slide-home').each(function(){
           
-          var $this = $(this).css('min-height', eiio.cache.window.height());
+          var $this = $(this).css('min-height', eiio.cache.wHeight);
           var h = $this.height();
           
 
@@ -71,6 +72,8 @@
           });
 
         });
+
+        $('#homeCanvas').attr('height', eiio.cache.wHeight).attr('width', eiio.cache.wWidth);
 
         var $quienes = $('#quienes');
         if($quienes.height() > ($quienes.find('.blck-main').height() + $quienes.find('.bl-quienes').height())) {
@@ -91,7 +94,7 @@
           req: false,
         },
 
-        init: function() {
+        update: function() {
           eiio.canvas.cache.$cv = $('#homeCanvas');
           eiio.canvas.cache.cvctx = eiio.canvas.cache.$cv[0].getContext('2d');
           
@@ -101,52 +104,65 @@
           $('.slide-home').css('background', 'none');
         },
 
+        scroll: function() {
+
+          if(!eiio.canvas.cache.ready || eiio.canvas.cache.req) return;
+
+          eiio.canvas.cache.req = true;
+          requestAnimFrame(eiio.canvas.realScroll);
+
+        },
+        realScroll: function() {
+
+          eiio.canvas.cache.req = null;
+
+          var scr = eiio.cache.window.scrollTop() / eiio.cache.wHeight; console.log(scr);
+          if(scr > 3) return;
+
+          var pixels = scr < 1 ? eiio.canvas.cache.img1 : eiio.canvas.cache.img2;
+          for (var i = pixels.data.length - 1; i >= 0; i--) {
+            pixels.data[i] += 1;
+          }
+
+          eiio.canvas.cache.cvctx.putImageData(pixels, 0, 0);
+        },
+
         loadImg: function(url, img) {
 
-          var $img = $('<img class="tmpFoto">').load(function(){
+          var $img = $('<img style="width: 100px; height: 100px;" class="tmpFoto">').load(function(){
 
+            var pWin = eiio.cache.wWidth / eiio.cache.wHeight;
+            var pImg = $img[0].width / $img[0].height;
+            var rW, rH, dx = 0, dy = 0;
+            if(pWin < pImg) {
+              rH = eiio.cache.wHeight;
+              rW = eiio.cache.wHeight * $img[0].width / $img[0].height;
+              dx = -1 * (rW - eiio.cache.wWidth) / 2;
+            } else {
+              rW = eiio.cache.wWidth;
+              rH = eiio.cache.wWidth * $img[0].height / $img[0].width;
+              dy = -1 * (rH - eiio.cache.wHeight) / 2;
+            }
+console.log(dx, dy, eiio.cache.wWidth, eiio.cache.wHeight, rW, rH)
             eiio.canvas.cache.cvctx
-              .drawImage(this, 0, 0, eiio.cache.wWidth, eiio.cache.wHeight);
+              .drawImage(this, 0, 0, $img[0].width, $img[0].height, dx, dy, rW, rH);
 
-            baseImgData = eiio.canvas.cache.cvctx.getImageData(0, 0, this.width, this.height);
+            baseImgData = eiio.canvas.cache.cvctx.getImageData(0, 0, eiio.cache.wWidth, eiio.cache.wHeight);
 
             eiio.canvas.cache[img] = baseImgData;
 
             setTimeout(function() {
               if(eiio.canvas.cache.img1 && eiio.canvas.cache.img2) {
                 eiio.canvas.cache.ready = true;
-                $('.tmpFoto').remove();
+                eiio.canvas.scroll();
               }
             }, 0);
 
           });
 
           $img.attr('src', url);
-          $('body').append($img);
 
         },
-
-        update: function() {
-
-          if(!eiio.canvas.cache.ready || eiio.canvas.cache.req) return;
-
-          eiio.canvas.cache.req = true;
-          requestAnimFrame(eiio.canvas.realUpdate);
-
-        },
-        realUpdate: function() {
-
-          eiio.canvas.cache.req = null;
-
-          var scr = eiio.cache.window.scrollTop() / eiio.cache.wHeight;
-          if(scr > 2) return;
-
-          var pixels = scr < 1 ? eiio.canvas.cache.img1 : eiio.canvas.cache.img2;
-          for (var i = pixels.data.length - 1; i >= 0; i--) {
-            pixels.data[i] *= scr - 1;
-          };
-          eiio.canvas.cache.cvctx.putImageData(pixels, 0, 0);
-        }
       },
 
       form: {

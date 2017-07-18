@@ -9,4 +9,5 @@
 		<h2>Rompemos</h2>
 	</div>
 </div>
+<div class="slide-home slide-home-3"></div>
 <canvas id="homeCanvas"></canvas>
