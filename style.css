@@ -131,6 +131,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 		a.bl-proy-elm-goto { font-size: 0.8em; text-decoration: underline; }
 			a.bl-proy-elm-goto i { padding-right: 0.6em; }
 
+.bl-proyectos-empty { text-align: center; font-size: 1.5em; }
+
 @media (min-width: 900px) { /* menu plegado */
 	.bl-proy-elm-text { font-size: 1.4em; }
 	.bl-proy-elm-text, .bl-proy-elm-capturas { width: 50%; padding: 1em; position: absolute; bottom: 2em; left: 50%; }
@@ -224,6 +226,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 			-webkit-transition: all 0.4s;-o-transition: all 0.4s;transition: all 0.4s;}
 		#wpcf7-f70-o1 .target:hover { opacity: 0.6; }
 		#wpcf7-f70-o1 .target i { padding-left: 0.4em; }
+
+
 
 @media (min-width: 600px) {
   .bl-form .email, .bl-form .nombre { width: 50%; float: left; }

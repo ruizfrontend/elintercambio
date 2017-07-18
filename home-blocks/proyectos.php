@@ -1,5 +1,5 @@
 <?php $countProjs = count($projData['homeData']['proyectos']); ?>
-<?php if($countProjs !== 0): ?>
+<?php if(!empty($projData['homeData']['proyectos'])): ?>
 	<div class="bl-proyectos clearfix">
 		<div class="bl-proy-main">
 			<?php foreach ($projData['homeData']['proyectos'] as $idx => $proy): ?>
@@ -46,6 +46,12 @@
 			    <div class="swiper-button-next" title="siguiente proyecto"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div>
 			</div>
 
-		<?php endif ?>
+		<?php endif; ?>
 	</div>
+<?php else: ?>
+	<div class="bl-proyectos bl-proyectos-empty clearfix">
+		<div class="bl-proy-main">
+			<h4>Tenemos muchos proyectos en camino<br>No te los pierdas</h4>
+		</div>
+	</div>	
 <?php endif ?>
