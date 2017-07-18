@@ -36,7 +36,7 @@ get_header(); ?>
 												
 
 				<?php switch($bloque['nombre_seccion']): // inclue módulos específicos para las secciones de la home
-					case 'Intro': break; ?>
+					case 'Intro': include(get_template_directory() . '/home-blocks/home.php'); break; ?>
 
 					<?php case 'que': break; ?>
 

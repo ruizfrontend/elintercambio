@@ -17,7 +17,10 @@
 
         eiio.cache.window = $(window);
         eiio.cache.window.bind('orientationchange resize', throttle(eiio.handleResize, 200, true)).resize();
+        eiio.cache.window.bind('scroll', eiio.handleScroll);
         
+          /** inicializaciones */
+        eiio.canvas.init();
         eiio.initContactForm();
         eiio.initScroll();
         eiio.initMenu();
@@ -46,10 +49,16 @@
         eiio.resizeSlideTeam();
       },
 
+      handleScroll: function() {
+
+        eiio.canvas.update();
+
+      },
+
       resizeSlides: function() {
 
             // resize sections
-        $('#Intro, #que, #quienes, #whom').each(function(){
+        $('#Intro, #que, #quienes, #whom, .slide-home, #homeCanvas').each(function(){
           
           var $this = $(this).css('min-height', eiio.cache.window.height());
           var h = $this.height();
@@ -70,6 +79,74 @@
           $quienes.removeClass('quienes-bottom');
         }
 
+      },
+
+      canvas: {
+        cache: {
+          $cv: null,
+          cvctx: null,
+          img1: null,
+          img2: null,
+          ready: false,
+          req: false,
+        },
+
+        init: function() {
+          eiio.canvas.cache.$cv = $('#homeCanvas');
+          eiio.canvas.cache.cvctx = eiio.canvas.cache.$cv[0].getContext('2d');
+          
+          eiio.canvas.loadImg($('.slide-home-1').data('img'), 'img1');
+          eiio.canvas.loadImg($('.slide-home-2').data('img'), 'img2');
+          
+          $('.slide-home').css('background', 'none');
+        },
+
+        loadImg: function(url, img) {
+
+          var $img = $('<img class="tmpFoto">').load(function(){
+
+            eiio.canvas.cache.cvctx
+              .drawImage(this, 0, 0, eiio.cache.wWidth, eiio.cache.wHeight);
+
+            baseImgData = eiio.canvas.cache.cvctx.getImageData(0, 0, this.width, this.height);
+
+            eiio.canvas.cache[img] = baseImgData;
+
+            setTimeout(function() {
+              if(eiio.canvas.cache.img1 && eiio.canvas.cache.img2) {
+                eiio.canvas.cache.ready = true;
+                $('.tmpFoto').remove();
+              }
+            }, 0);
+
+          });
+
+          $img.attr('src', url);
+          $('body').append($img);
+
+        },
+
+        update: function() {
+
+          if(!eiio.canvas.cache.ready || eiio.canvas.cache.req) return;
+
+          eiio.canvas.cache.req = true;
+          requestAnimFrame(eiio.canvas.realUpdate);
+
+        },
+        realUpdate: function() {
+
+          eiio.canvas.cache.req = null;
+
+          var scr = eiio.cache.window.scrollTop() / eiio.cache.wHeight;
+          if(scr > 2) return;
+
+          var pixels = scr < 1 ? eiio.canvas.cache.img1 : eiio.canvas.cache.img2;
+          for (var i = pixels.data.length - 1; i >= 0; i--) {
+            pixels.data[i] *= scr - 1;
+          };
+          eiio.canvas.cache.cvctx.putImageData(pixels, 0, 0);
+        }
       },
 
       form: {
@@ -274,7 +351,7 @@
         setTimeout(function(){
 
             $('.bl-proy-wrap').width($thumbs.length * $thumbs.eq(0).width() );
-          }, 400)
+          }, 400);
 
       },
 
@@ -333,7 +410,20 @@
           element: $('#menu')[0]
         });
 
+              // canvas fixed
+        new Waypoint({
+          element: $('#Intro'),
+          offset: 'bottom-in-view',
+          handler: function(direction) {
 
+            if(direction == 'down')
+              $('#homeCanvas').addClass('normal');
+            else
+              $('#homeCanvas').removeClass('normal');
+            
+          }
+
+        });
             // WAYPOINTS
         $('.blck').each(function(){
 
@@ -380,8 +470,9 @@ function debounce (callback, limit) {   // http://sampsonblog.com/749/simple-thr
                 wait = false;         // And allow future invocations
             }, limit);
         }
-    }
+    };
 }
+
 function throttle(func, wait, immediate) {
 
   var timeout;
@@ -403,7 +494,7 @@ function throttle(func, wait, immediate) {
   
     if (callNow) func.apply(context, args);
   };
-};
+}
 
 
 //      new Waypoint({

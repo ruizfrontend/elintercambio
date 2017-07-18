@@ -239,6 +239,12 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 
 
 
+#Intro > .blck-inn {
+    top: 0!important;
+}
+#Intro h1 { text-align: center; margin: 0; }
+#Intro .slide-home .blck-inn { opacity: 0; }
+#Intro .slide-home-1, #Intro .slide-home-2 {  } 
 
-
-
+#homeCanvas { position: fixed; bottom: 0; width: 100%; left: 0; }
+#homeCanvas.normal { position: absolute; }
