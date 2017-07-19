@@ -25,20 +25,9 @@
         eiio.initMenu();
         eiio.initWaypoints();
         eiio.initProjs();
+        eiio.initjQueries();
 
         Waypoint.refreshAll();
-
-        $('#launch').click(function(){
-          $("html, body").stop(false, false)
-            .animate({ scrollTop: eiio.cache.wHeight * 0.9 }, 2000);
-        });
-
-
-            // elimina titulares animados en móvil
-        if(eiio.cache.responsive) {
-          $('.blck').addClass('titleFx');
-          $('.hd-l2').addClass('hd-l2-marked');
-        }
 
           // Inicialización concluida
         eiio.cache.firstLoad = false;
@@ -67,6 +56,21 @@
         eiio.canvas.scroll();
 
       },
+      initjQueries: function() {
+
+        $('#launch').click(function(){
+          $("html, body").stop(false, false)
+            .animate({ scrollTop: eiio.cache.wHeight * 0.9 }, 2000);
+        });
+
+
+            // elimina titulares animados en móvil
+        if(eiio.cache.responsive) {
+          $('.blck').addClass('titleFx');
+          $('.hd-l2').addClass('hd-l2-marked');
+        }
+
+      },
 
       resizeSlides: function() {
 
@@ -85,6 +89,7 @@
 
         });
 
+          // el camvas hay que fijar el tamaño como attributo
         $('#homeCanvas').attr('height', eiio.cache.wHeight).attr('width', eiio.cache.wWidth);
 
         var $quienes = $('#quienes');
