@@ -44,20 +44,21 @@
         eiio.cache.wWidth = eiio.cache.window.width();
         eiio.cache.wHeight = eiio.cache.window.height();
 
-        eiio.canvas.update();
-
         eiio.cache.responsive = eiio.cache.wWidth < 800 ? true : false;
 
         eiio.resizeSlides();
         eiio.resizeProjs();
         eiio.resizeSlideTeam();
+        
+        eiio.canvas.update();
       },
+
 
       handleScroll: function() {
 
         eiio.canvas.scroll();
-
       },
+
       initjQueries: function() {
 
         $('#launch').click(function(){
@@ -268,23 +269,28 @@
 
         loadImg: function(url, img) {
 
-          var $img = $('<img style="width: 100px; height: 100px;" class="tmpFoto">').load(function(){
+          var $img = $('<img class="tmpFoto">').load(function(){
+
+            var imgH = $img[0].height;
+            var imgW = $img[0].width;
 
             var pWin = eiio.cache.wWidth / eiio.cache.wHeight;
-            var pImg = $img[0].width / $img[0].height;
+            var pImg = imgW / imgH;
 
             if(pWin < pImg) {
               eiio.canvas.cache.rH = eiio.cache.wHeight;
-              eiio.canvas.cache.rW = eiio.cache.wHeight * $img[0].width / $img[0].height;
+              eiio.canvas.cache.rW = eiio.cache.wHeight * imgW / imgH;
+              eiio.canvas.cache.dy = 0;
               eiio.canvas.cache.dx = -1 * (eiio.canvas.cache.rW - eiio.cache.wWidth) / 2;
             } else {
               eiio.canvas.cache.rW = eiio.cache.wWidth;
-              eiio.canvas.cache.rH = eiio.cache.wWidth * $img[0].height / $img[0].width;
+              eiio.canvas.cache.rH = eiio.cache.wWidth * imgH / imgW;
+              eiio.canvas.cache.dx = 0;
               eiio.canvas.cache.dy = -1 * (eiio.canvas.cache.rH - eiio.cache.wHeight) / 2;
             }
 
             eiio.canvas.cache.cvctx
-              .drawImage(this, 0, 0, $img[0].width, $img[0].height, eiio.canvas.cache.dx, eiio.canvas.cache.dy, eiio.canvas.cache.rW, eiio.canvas.cache.rH);
+              .drawImage(this, 0, 0, imgW, imgH, eiio.canvas.cache.dx, eiio.canvas.cache.dy, eiio.canvas.cache.rW, eiio.canvas.cache.rH);
 
             baseImgData = eiio.canvas.cache.cvctx.getImageData(0, 0, eiio.cache.wWidth, eiio.cache.wHeight);
 
