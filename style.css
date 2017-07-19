@@ -242,7 +242,7 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 }
 
 
-
+#Intro { background: #353639!important; }
 #Intro > .blck-inn {
     top: 0!important;
 }
@@ -250,5 +250,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 #Intro .slide-home .blck-inn { opacity: 0; }
 #Intro .slide-home-1, #Intro .slide-home-2 {  } 
 
-#homeCanvas { position: fixed; bottom: 0; width: 100%; left: 0; }
+#homeCanvas { position: fixed; bottom: 0; width: 100%; left: 0; 
+		-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; opacity: 0; }
 #homeCanvas.normal { position: absolute; }
+
+#rompemos { display: none; }

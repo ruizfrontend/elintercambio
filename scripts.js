@@ -90,8 +90,13 @@
           cvctx: null,
           img1: null,
           img2: null,
+          img3: null,
           ready: false,
           req: false,
+          rH: null, // cache de tamaño real de la imagen pintada
+          rW: null,
+          dx: 0,
+          dy: 0,
         },
 
         update: function() {
@@ -100,6 +105,7 @@
           
           eiio.canvas.loadImg($('.slide-home-1').data('img'), 'img1');
           eiio.canvas.loadImg($('.slide-home-2').data('img'), 'img2');
+          eiio.canvas.loadImg($('.slide-home-3').data('img'), 'img3');
           
           $('.slide-home').css('background', 'none');
         },
@@ -116,15 +122,123 @@
 
           eiio.canvas.cache.req = null;
 
-          var scr = eiio.cache.window.scrollTop() / eiio.cache.wHeight; console.log(scr);
+          var scr = eiio.cache.window.scrollTop() / eiio.cache.wHeight;
           if(scr > 3) return;
 
+          eiio.canvas.cache.cvctx.putImageData(eiio.canvas.generaImg(scr), 0, 0);
+        },
+
+        generaImg: function(scr) {
+
           var pixels = scr < 1 ? eiio.canvas.cache.img1 : eiio.canvas.cache.img2;
-          for (var i = pixels.data.length - 1; i >= 0; i--) {
-            pixels.data[i] += 1;
+
+          var target = eiio.canvas.cache.cvctx.createImageData(pixels.width, pixels.height);
+          target.data.set(pixels.data);
+          var h = target.height, w = target.width;
+          
+          $('#rompemos').stop(false,false).hide();
+
+          // if(scr < 0.4) return target;
+
+          if(scr < 0.3) {
+            for (var i = 0; i < target.data.length; i += 4) {
+
+              var currH = parseInt(i / (4 * w), 10);
+              if(currH < ((eiio.canvas.cache.rH * 0.59) + eiio.canvas.cache.dy)) continue;
+              
+              target.data[i] = 53;
+              target.data[i+1] = 54;
+              target.data[i+2] = 57;
+              target.data[i+3] = 255;
+            }
+          } else if(scr < 0.5) {
+            for (var i = 0; i < target.data.length; i += 4) {
+
+              var currH = parseInt(i / (4 * w), 10);
+              if(currH < ((eiio.canvas.cache.rH * 0.59) + eiio.canvas.cache.dy)) continue;
+
+              var fxPercent = (scr - 0.2) / 0.3;
+              target.data[i+3] = 255 * fxPercent;
+            }
+          } else if(scr < 0.7) {
+            for (var i = 0; i < target.data.length; i += 4) {
+
+              var currH = parseInt(i / (4 * w), 10);
+              if(currH > ((eiio.canvas.cache.rH * 0.59) + eiio.canvas.cache.dy) || currH < ((eiio.canvas.cache.rH * 0.524) + eiio.canvas.cache.dy)) continue;
+              
+              var currW = (i - (currH * 4 * w)) / 4;
+
+              var fxPercent = (scr - 0.5) / 0.2;
+              var dplz = parseInt(fxPercent * 5);
+              if(currW < dplz) continue;
+
+              target.data[i] = pixels.data[i - (dplz * 4)];
+              target.data[i+1] = pixels.data[i+1 - (dplz * 4)];
+              target.data[i+2] = pixels.data[i+1 - (dplz * 4)];
+              target.data[i+3] = pixels.data[i+1 - (dplz * 4)];
+            }
+          } else if(scr < 1) {
+            for (var i = 0; i < target.data.length; i += 4) {
+
+              var currH = parseInt(i / (4 * w), 10);
+              if(currH > ((eiio.canvas.cache.rH * 0.59) + eiio.canvas.cache.dy) || currH < ((eiio.canvas.cache.rH * 0.524) + eiio.canvas.cache.dy)) continue;
+              
+              var currW = (i - (currH * 4 * w)) / 4;
+
+              var dplz = 5;
+              if(currW < dplz) continue;
+
+              target.data[i] = pixels.data[i - (dplz * 4)];
+              target.data[i+1] = pixels.data[i+1 - (dplz * 4)];
+              target.data[i+2] = pixels.data[i+1 - (dplz * 4)];
+              target.data[i+3] = pixels.data[i+1 - (dplz * 4)];
+            }
+          } else if(scr < 1.1) {
+            $('#rompemos').stop(false,false).fadeIn(400);
+
+            for (var i = 0; i < target.data.length; i += 4) {
+
+              var fxPercent = (scr - 1) / 0.08;
+
+              target.data[i+3] = 255 * fxPercent;
+            }
+          } else if(scr < 2){
+
+            var target2 = eiio.canvas.cache.cvctx.createImageData(eiio.canvas.cache.img3.width, eiio.canvas.cache.img3.height);
+            target2.data.set(eiio.canvas.cache.img3.data);
+
+            var maxOpen = eiio.canvas.cache.img3.height / 2;
+            var p0 = (eiio.canvas.cache.img3.height / 2) + (eiio.canvas.cache.img3.height / 12);
+            var p100 = (eiio.canvas.cache.img3.height / 2) - (eiio.canvas.cache.img3.height / 12);
+            var pendiente = (p0 - p100) / eiio.canvas.cache.img3.width;
+
+            for (var i = 0; i < target.data.length; i += 4) {
+
+              var fxPercent = (scr - 1.1) / 0.9;
+
+              var currH = parseInt(i / (4 * w), 10);
+              var currW = (i - (currH * 4 * w)) / 4;
+
+              if(currH < p0 - (currW * pendiente) + (fxPercent * maxOpen) && currH > p0 - (currW * pendiente) - (fxPercent * maxOpen)) {
+
+                target.data[i] = target2.data[i];
+                target.data[i+1] = target2.data[i+1];
+                target.data[i+2] = target2.data[i+2];
+                target.data[i+3] = target2.data[i+3];
+              }
+
+            }
+          } else if(scr < 3) {
+
+            var target2 = eiio.canvas.cache.cvctx.createImageData(eiio.canvas.cache.img3.width, eiio.canvas.cache.img3.height);
+            target2.data.set(eiio.canvas.cache.img3.data);
+
+            return target2
           }
 
-          eiio.canvas.cache.cvctx.putImageData(pixels, 0, 0);
+
+          return target;
+
         },
 
         loadImg: function(url, img) {
@@ -133,19 +247,19 @@
 
             var pWin = eiio.cache.wWidth / eiio.cache.wHeight;
             var pImg = $img[0].width / $img[0].height;
-            var rW, rH, dx = 0, dy = 0;
+
             if(pWin < pImg) {
-              rH = eiio.cache.wHeight;
-              rW = eiio.cache.wHeight * $img[0].width / $img[0].height;
-              dx = -1 * (rW - eiio.cache.wWidth) / 2;
+              eiio.canvas.cache.rH = eiio.cache.wHeight;
+              eiio.canvas.cache.rW = eiio.cache.wHeight * $img[0].width / $img[0].height;
+              eiio.canvas.cache.dx = -1 * (eiio.canvas.cache.rW - eiio.cache.wWidth) / 2;
             } else {
-              rW = eiio.cache.wWidth;
-              rH = eiio.cache.wWidth * $img[0].height / $img[0].width;
-              dy = -1 * (rH - eiio.cache.wHeight) / 2;
+              eiio.canvas.cache.rW = eiio.cache.wWidth;
+              eiio.canvas.cache.rH = eiio.cache.wWidth * $img[0].height / $img[0].width;
+              eiio.canvas.cache.dy = -1 * (eiio.canvas.cache.rH - eiio.cache.wHeight) / 2;
             }
-console.log(dx, dy, eiio.cache.wWidth, eiio.cache.wHeight, rW, rH)
+
             eiio.canvas.cache.cvctx
-              .drawImage(this, 0, 0, $img[0].width, $img[0].height, dx, dy, rW, rH);
+              .drawImage(this, 0, 0, $img[0].width, $img[0].height, eiio.canvas.cache.dx, eiio.canvas.cache.dy, eiio.canvas.cache.rW, eiio.canvas.cache.rH);
 
             baseImgData = eiio.canvas.cache.cvctx.getImageData(0, 0, eiio.cache.wWidth, eiio.cache.wHeight);
 
@@ -156,6 +270,10 @@ console.log(dx, dy, eiio.cache.wWidth, eiio.cache.wHeight, rW, rH)
                 eiio.canvas.cache.ready = true;
                 eiio.canvas.scroll();
               }
+
+              eiio.canvas.cache.$cv.animate({'opacity': 1}, 600, function() {
+
+              });
             }, 0);
 
           });
