@@ -52,6 +52,9 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 }
 @media (min-width: 900px) { /* menu plegado */
 	.menu-right { display: block!important; }
+	#menu .menu-right-wrap { -webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; opacity: 1; }
+	#menu.hidden .menu-right-wrap { opacity: 0; }
+	#menu:hover .menu-right-wrap { opacity: 1; }
 }
 @media (max-width: 900px) {
 	#menu .ham { display: block; float: right; font-size: 2em; line-height: 1em; padding: 0.8em 0.4em; z-index: 20; position: relative; }
@@ -65,6 +68,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 @media (max-width: 850px) { /* menu mini */
 	#menu .menu-right-wrap a { width: 100%; padding: 0; line-height: 2em; }
 	.menu-right-wrap { padding-bottom: 1em; }
+	#menu.stuck { background: rgba(213, 206, 186, 0.2); }
+	#menu.menu-light.stuck { background: rgba(92, 96, 104, 0.2); }
 }
 
 
@@ -83,6 +88,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 		.blck-dark h2 span { color: white; }
 		/*.blck-dark h2 .hd-l2 span { background: #d5ceba; color: #353637; }*/
 		.blck-dark .hd-l2-wrap span { background: #d5ceba; color: #353637; }
+	h2 .hd-l2-marked span { background: #353637; color: white;  padding: 0!important; }
+	.blck-dark h2 .hd-l2-marked span { background: #d5ceba; color: #353637; padding: 0!important; }
 
 .blck-main { width: 100%; margin: 0 auto; }
 	.blck-main-wrap { max-width: 800px; padding: 4em 2em 2em 2em; margin: 0 auto; position: relative; }
@@ -199,6 +206,10 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 @media (min-width: 900px) { /* menu plegado */
 	.bl-aliados-sct { width: 33%; padding: 0 1em; float: left; }
 }
+@media (max-width: 400px) { /* menu plegado */
+	.blck-logo { width: 100%; margin-top: 1em; }
+	.bl-aliados-sct { margin-bottom: 2em; }
+}
 
 
 .bl-contacto-data { margin-right: 5%; width: 25%; float: left; background: #747678; padding: 1.4em; }
@@ -250,8 +261,10 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 #Intro .slide-home .blck-inn { opacity: 0; }
 #Intro .slide-home-1, #Intro .slide-home-2 {  } 
 
-#homeCanvas { position: fixed; bottom: 0; width: 100%; left: 0; 
+.canvas-wrap { position: fixed; bottom: 0; width: 100%; left: 0; 
 		-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; opacity: 0; }
-#homeCanvas.normal { position: absolute; }
+.canvas-wrap.normal { position: absolute; }
 
-#rompemos { display: none; }
+#rompemos { display: none; position: absolute; width: 100%; height: 100%; font-weight: 900; font-size: 2.4em; }
+
+#launch { position: absolute; width: 100%; bottom: 2em; font-size: 2.4em; text-align: center; cursor: pointer; }

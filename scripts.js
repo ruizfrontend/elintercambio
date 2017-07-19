@@ -28,6 +28,18 @@
 
         Waypoint.refreshAll();
 
+        $('#launch').click(function(){
+          $("html, body").stop(false, false)
+            .animate({ scrollTop: eiio.cache.wHeight * 0.9 }, 2000);
+        });
+
+
+            // elimina titulares animados en móvil
+        if(eiio.cache.responsive) {
+          $('.blck').addClass('titleFx');
+          $('.hd-l2').addClass('hd-l2-marked');
+        }
+
           // Inicialización concluida
         eiio.cache.firstLoad = false;
           
@@ -59,7 +71,7 @@
       resizeSlides: function() {
 
             // resize sections
-        $('#Intro, #que, #quienes, #whom, .slide-home').each(function(){
+        $('#Intro, #que, #quienes, #whom, .slide-home, .canvas-wrap').each(function(){
           
           var $this = $(this).css('min-height', eiio.cache.wHeight);
           var h = $this.height();
@@ -123,6 +135,9 @@
           eiio.canvas.cache.req = null;
 
           var scr = eiio.cache.window.scrollTop() / eiio.cache.wHeight;
+
+          if(scr > 0.1) $('#launch').fadeOut(400);
+
           if(scr > 3) return;
 
           eiio.canvas.cache.cvctx.putImageData(eiio.canvas.generaImg(scr), 0, 0);
@@ -194,7 +209,6 @@
               target.data[i+3] = pixels.data[i+1 - (dplz * 4)];
             }
           } else if(scr < 1.1) {
-            $('#rompemos').stop(false,false).fadeIn(400);
 
             for (var i = 0; i < target.data.length; i += 4) {
 
@@ -203,6 +217,7 @@
               target.data[i+3] = 255 * fxPercent;
             }
           } else if(scr < 2){
+            $('#rompemos').stop(false,false).fadeIn(400);
 
             var target2 = eiio.canvas.cache.cvctx.createImageData(eiio.canvas.cache.img3.width, eiio.canvas.cache.img3.height);
             target2.data.set(eiio.canvas.cache.img3.data);
@@ -229,11 +244,12 @@
 
             }
           } else if(scr < 3) {
+            $('#rompemos').stop(false,false).fadeIn(400);
 
             var target2 = eiio.canvas.cache.cvctx.createImageData(eiio.canvas.cache.img3.width, eiio.canvas.cache.img3.height);
             target2.data.set(eiio.canvas.cache.img3.data);
 
-            return target2
+            return target2;
           }
 
 
@@ -266,14 +282,16 @@
             eiio.canvas.cache[img] = baseImgData;
 
             setTimeout(function() {
-              if(eiio.canvas.cache.img1 && eiio.canvas.cache.img2) {
+
+              if(eiio.canvas.cache.ready) return;
+              if(eiio.canvas.cache.img1 && eiio.canvas.cache.img2 && eiio.canvas.cache.img3) {
+
                 eiio.canvas.cache.ready = true;
+
+                $('.canvas-wrap').animate({'opacity': 1}, 600);
+
                 eiio.canvas.scroll();
               }
-
-              eiio.canvas.cache.$cv.animate({'opacity': 1}, 600, function() {
-
-              });
             }, 0);
 
           });
@@ -305,7 +323,7 @@
           if($('#menu').hasClass('shown')) $('#menu').removeClass('shown').find('.menu-right').stop(false, false).slideUp();
       },
 
-      scrollTo: function(elm) {
+      scrollTo: function(elm, time) {
         var $target = $(elm);
 
         if(!$target.length) {
@@ -316,7 +334,7 @@
         eiio.foldMenu();
 
         $("html, body").stop(false, false)
-          .animate({ scrollTop: $target.offset().top + 1 }, 500);
+          .animate({ scrollTop: $target.offset().top + 1 }, time ? time : 500);
 
         // setTimeout(function(){ eiio.updateSect($target); }, 100);
 
@@ -325,6 +343,9 @@
 
               // Oculta menu para evitar lios de colores
           eiio.foldMenu();
+
+          $('#menu').removeClass('hidden');
+          setTimeout(function(){ $('#menu').addClass('hidden'); }, 1200);
           
 
               // Alterna CSS 
@@ -340,7 +361,6 @@
           $('#menu')
               .find('.act').removeClass('act').end()
               .find('[href*=' + id + ']').addClass('act');
-
 
                   // anima títulos de sección
           if(!$actSect.hasClass('titleFx') && $actSect.find('.hd-l2').length) {
@@ -551,9 +571,9 @@
           handler: function(direction) {
 
             if(direction == 'down')
-              $('#homeCanvas').addClass('normal');
+              $('.canvas-wrap').addClass('normal');
             else
-              $('#homeCanvas').removeClass('normal');
+              $('.canvas-wrap').removeClass('normal');
             
           }
 
