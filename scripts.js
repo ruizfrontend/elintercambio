@@ -16,9 +16,11 @@
       init: function() {
 
         eiio.cache.window = $(window);
-        eiio.cache.window.bind('orientationchange resize', throttle(eiio.handleResize, 200, true)).resize();
+        eiio.cache.window.bind('orientationchange resize', throttle(eiio.handleResize, 100));
         eiio.cache.window.bind('scroll', eiio.handleScroll);
-        
+
+        eiio.handleResize(); // forzamos primer resize
+
           /** inicializaciones */
         eiio.initContactForm();
         eiio.initScroll();
@@ -93,7 +95,9 @@
         $('#homeCanvas').attr('height', eiio.cache.wHeight).attr('width', eiio.cache.wWidth);
 
         var $quienes = $('#quienes');
-        if($quienes.height() > ($quienes.find('.blck-main').height() + $quienes.find('.bl-quienes').height())) {
+// console.log($quienes.height(), $quienes.find('.blck-main').outerHeight(), $quienes.find('.bl-quienes').outerHeight());
+//         if($quienes.find('.blck-inn').height() > ($quienes.find('.blck-main').outerHeight() + $quienes.find('.bl-quienes').outerHeight())) {
+        if($quienes.find('.blck-inn').height() < eiio.cache.wHeight) {
           $quienes.addClass('quienes-bottom');
         } else {
           $quienes.removeClass('quienes-bottom');
@@ -618,7 +622,7 @@ window.requestAnimFrame = (function(){
           };
 })();
 
-function debounce (callback, limit) {   // http://sampsonblog.com/749/simple-throttle-function modificado!
+function throttle(callback, limit) {   // http://sampsonblog.com/749/simple-throttle-function modificado!
     var wait = false;                 // Initially, we're not waiting
     return function () {              // We return a throttled function
         if (!wait) {                  // If we're not waiting
@@ -630,29 +634,6 @@ function debounce (callback, limit) {   // http://sampsonblog.com/749/simple-thr
             }, limit);
         }
     };
-}
-
-function throttle(func, wait, immediate) {
-
-  var timeout;
-  
-  return function() {
-  
-    var context = this, args = arguments;
-  
-    var later = function() {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-  
-    var callNow = immediate && !timeout;
-  
-    clearTimeout(timeout);
-  
-    timeout = setTimeout(later, wait);
-  
-    if (callNow) func.apply(context, args);
-  };
 }
 
 
