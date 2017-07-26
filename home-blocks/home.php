@@ -4,15 +4,12 @@
 		<h2>Periodismo de ruptura</h2>
 	</div>
 </div>
-<div class="slide-home slide-home-2" data-img="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/bg-2.jpg" style="background: url(<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/bg-2.jpg) center center; background-size: cover;">
-	<div class="blck-inn">
-		<h2>Rompemos</h2>
-	</div>
-</div>
+<div class="slide-home slide-home-2" data-img="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/bg-22.jpg" style="background: url(<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/bg-2.jpg) center center; background-size: cover;"></div>
 <div class="slide-home slide-home-3" data-img="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/bg-3.jpg"></div>
+<div class="slide-home slide-home-4"></div>
 
 <div class="canvas-wrap">
 	<div id="launch" ><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></div>
-	<div id="rompemos" ><div class="wk-valign"><div class="wk-valign-cont">Rompemos</div></div></div>
+	<div id="queFix" ><?php include(get_template_directory() . '/home-blocks/queFix.php'); ?></div>
 	<canvas id="homeCanvas"></canvas>
 </div>

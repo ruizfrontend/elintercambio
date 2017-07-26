@@ -1,3 +1,5 @@
+// davidruizlopez.es @2017
+
 (function($) {
 
     window.$ = jQuery;
@@ -82,7 +84,6 @@
           
           var $this = $(this).css('min-height', eiio.cache.wHeight);
           var h = $this.height();
-          
 
           $this.find('.blck-inn').each(function(){
             var $this = $(this);
@@ -96,8 +97,6 @@
         $('#homeCanvas').attr('height', eiio.cache.wHeight).attr('width', eiio.cache.wWidth);
 
         var $quienes = $('#quienes');
-// console.log($quienes.height(), $quienes.find('.blck-main').outerHeight(), $quienes.find('.bl-quienes').outerHeight());
-//         if($quienes.find('.blck-inn').height() > ($quienes.find('.blck-main').outerHeight() + $quienes.find('.bl-quienes').outerHeight())) {
         if($quienes.find('.blck-inn').height() < eiio.cache.wHeight) {
           $quienes.addClass('quienes-bottom');
         } else {
@@ -148,7 +147,7 @@
 
           if(scr > 0.1) $('#launch').fadeOut(400);
 
-          if(scr > 3) return;
+          if(scr > 4) return;
 
           eiio.canvas.cache.cvctx.putImageData(eiio.canvas.generaImg(scr), 0, 0);
         },
@@ -160,12 +159,12 @@
           var target = eiio.canvas.cache.cvctx.createImageData(pixels.width, pixels.height);
           target.data.set(pixels.data);
           var h = target.height, w = target.width;
-          
-          $('#rompemos').stop(false,false).hide();
 
           // if(scr < 0.4) return target;
 
-          if(scr < 0.3) {
+          if(scr < 0.3) { // paso 1: fadeIn del logo (sin lema)
+            $('#queFix').filter('.shown').removeClass('shown').stop(false,false).hide();
+
             for (var i = 0; i < target.data.length; i += 4) {
 
               var currH = parseInt(i / (4 * w), 10);
@@ -176,7 +175,9 @@
               target.data[i+2] = 57;
               target.data[i+3] = 255;
             }
-          } else if(scr < 0.5) {
+          } else if(scr < 0.5) { // paso 2: fadeIn del lema
+            $('#queFix').filter('.shown').removeClass('shown').stop(false,false).hide();
+
             for (var i = 0; i < target.data.length; i += 4) {
 
               var currH = parseInt(i / (4 * w), 10);
@@ -185,7 +186,10 @@
               var fxPercent = (scr - 0.2) / 0.3;
               target.data[i+3] = 255 * fxPercent;
             }
-          } else if(scr < 0.7) {
+
+          } else if(scr < 0.7) { // paso 3: roto
+            $('#queFix').filter('.shown').removeClass('shown').stop(false,false).hide();
+
             for (var i = 0; i < target.data.length; i += 4) {
 
               var currH = parseInt(i / (4 * w), 10);
@@ -194,15 +198,18 @@
               var currW = (i - (currH * 4 * w)) / 4;
 
               var fxPercent = (scr - 0.5) / 0.2;
-              var dplz = parseInt(fxPercent * 5);
-              if(currW < dplz) continue;
+              var desplaza = parseInt(fxPercent * 5);
+              if(currW < desplaza) continue;
 
-              target.data[i] = pixels.data[i - (dplz * 4)];
-              target.data[i+1] = pixels.data[i+1 - (dplz * 4)];
-              target.data[i+2] = pixels.data[i+1 - (dplz * 4)];
-              target.data[i+3] = pixels.data[i+1 - (dplz * 4)];
+              target.data[i] = pixels.data[i - (desplaza * 4)];
+              target.data[i+1] = pixels.data[i+1 - (desplaza * 4)];
+              target.data[i+2] = pixels.data[i+1 - (desplaza * 4)];
+              target.data[i+3] = pixels.data[i+1 - (desplaza * 4)];
             }
-          } else if(scr < 1) {
+
+          } else if(scr < 1) { // paso 3: plano fijo
+            $('#queFix').filter('.shown').removeClass('shown').stop(false,false).hide();
+
             for (var i = 0; i < target.data.length; i += 4) {
 
               var currH = parseInt(i / (4 * w), 10);
@@ -210,15 +217,17 @@
               
               var currW = (i - (currH * 4 * w)) / 4;
 
-              var dplz = 5;
-              if(currW < dplz) continue;
+              var desplaza = 5;
+              if(currW < desplaza) continue;
 
-              target.data[i] = pixels.data[i - (dplz * 4)];
-              target.data[i+1] = pixels.data[i+1 - (dplz * 4)];
-              target.data[i+2] = pixels.data[i+1 - (dplz * 4)];
-              target.data[i+3] = pixels.data[i+1 - (dplz * 4)];
+              target.data[i] = pixels.data[i - (desplaza * 4)];
+              target.data[i+1] = pixels.data[i+1 - (desplaza * 4)];
+              target.data[i+2] = pixels.data[i+1 - (desplaza * 4)];
+              target.data[i+3] = pixels.data[i+1 - (desplaza * 4)];
             }
-          } else if(scr < 1.1) {
+
+          } else if(scr < 1.1) { // paso 4: máquina fade
+            $('#queFix').filter('.shown').removeClass('shown').stop(false,false).hide();
 
             for (var i = 0; i < target.data.length; i += 4) {
 
@@ -226,8 +235,20 @@
 
               target.data[i+3] = 255 * fxPercent;
             }
-          } else if(scr < 2){
-            $('#rompemos').stop(false,false).fadeIn(400);
+
+          } else if(scr < 1.3) { // paso 5: máquina fija
+            $('#queFix').filter('.shown').removeClass('shown').stop(false,false).hide();
+
+            for (var i = 0; i < target.data.length; i += 4) {
+
+              var fxPercent = (scr - 1) / 0.08;
+
+              target.data[i+3] = 255 * fxPercent;
+            }
+
+          } else if(scr < 2){ // paso 6: cortinilla de estrella
+
+            $('#queFix').filter('.shown').removeClass('shown').stop(false,false).hide();
 
             var target2 = eiio.canvas.cache.cvctx.createImageData(eiio.canvas.cache.img3.width, eiio.canvas.cache.img3.height);
             target2.data.set(eiio.canvas.cache.img3.data);
@@ -253,11 +274,42 @@
               }
 
             }
-          } else if(scr < 3) {
-            $('#rompemos').stop(false,false).fadeIn(400);
+          // } else if(scr < 3) {
+          } else {
+            $('#queFix').filter(':not("shown")').addClass('shown').stop(false,false).fadeIn(1200).each(function(){
+              var $this = $(this).find('.blck-inn');
+              var hIn = $this.height();
+              $this.css('top', hIn < eiio.cache.wHeight ? (eiio.cache.wHeight - hIn) / 2 : 0);
+
+                      // anima títulos de sección
+              if(!$this.hasClass('titleFx') && $this.find('.hd-l2').length) {
+                  
+                  $this.addClass('titleFx');
+
+                  var $elm = $this.find('.hd-l2 span');
+                  var $clon = $elm.clone();
+                  
+                  $clon
+                      .appendTo($elm)
+                      .wrap('<div class="hd-l2-wrap"></div>');
+
+                  $this.find('.hd-l2-wrap')
+                      .find('span').css('width', $elm.outerWidth()).end()
+                      .css({width: 0}).animate({ width: $elm.outerWidth()}, 1000);
+              }
+            });
 
             var target2 = eiio.canvas.cache.cvctx.createImageData(eiio.canvas.cache.img3.width, eiio.canvas.cache.img3.height);
             target2.data.set(eiio.canvas.cache.img3.data);
+
+            for (var i = 0; i < target2.data.length; i += 4) {
+
+              var fxPercent = (scr - 2) * 3; // solo fx al 33% inicial de la imagen
+              fxPercent = fxPercent > 1 ? 1 : fxPercent;
+
+              target2.data[i+3] = target2.data[i+3] * (1 - (fxPercent * 0.8));
+
+            }
 
             return target2;
           }
@@ -642,28 +694,5 @@ function throttle(callback, limit) {   // http://sampsonblog.com/749/simple-thro
     };
 }
 
-
-//      new Waypoint({
-//        element: $(this),
-//        offset: 'bottom-in-view',
-//        handler: function(direction) { if(direction == 'up') console.log('up', $(this.element).attr('id'))
-// return;
-//          var $actSect = $(this.element);
-            
-//          if($actSect.hasClass('blck-light')){
-//              $('#menu').addClass('menu-light');
-//          } else {
-//              $('#menu').removeClass('menu-light');
-//          };
-
-//          var id = $actSect.attr('id');
-
-//          $('#menu')
-//              .find('.act').removeClass('act').end()
-//              .find('[href*=' + id + ']').addClass('act');
-
-//        }
-//      })  
-//  });
 
 })(jQuery);

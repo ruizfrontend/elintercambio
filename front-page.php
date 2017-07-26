@@ -12,6 +12,11 @@ get_header(); ?>
 <?php if($projData['isHome']): ?>
 	<div id="main">
 		<?php foreach ($projData['homeData']['bloques'] as $bloque): ?>
+
+			<?php if($bloque['nombre_seccion'] == 'que'): // el menú se incluye antes la Intro y tiene que ir fuera de todo el wrap para el sticky ?>
+				<?php include(get_template_directory() . '/menu.php'); ?>
+				<?php continue; ?>
+			<?php endif; ?>
 			
 			<?php $blockClass = 'blck-' . $bloque['nombre_seccion']; // sección como nombre de clase ?>
 			<?php $blockClass .= ' blck-' . ($bloque['color'] == 'gris' || $bloque['color'] == 'negro' ? 'dark' : 'light') . ' blck-' . $bloque['color']; ?>
@@ -52,10 +57,6 @@ get_header(); ?>
 				
 				<?php endswitch; ?>
 			</div></div>
-
-			<?php if($bloque['nombre_seccion'] == 'Intro'): // el menú se incluye tras la Intro y tiene que ir fuera de todo el wrap para el sticky ?>
-				<?php include(get_template_directory() . '/menu.php'); ?>
-			<?php endif; ?>
 
 		<?php endforeach; ?>
 	</div>
