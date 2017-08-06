@@ -214,12 +214,15 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 	.blck-img img { width: 100%; max-width: 100%; height: auto; display: block; }
 
 
-.bl-aliados { padding: 2em; }
+.bl-aliados { padding: 2em; max-width: 1500px; margin: 0 auto; }
 	.bl-aliados h4 { text-transform: uppercase; font-size: 1.2em; margin-bottom: 0.2em; margin-top: 0; }
 	.bl-aliados h4 i { padding-right: 0.2em; }
 	.bl-aliados p { margin-top: 0; }
 	.blck-logo { float: left; float: left; margin-right: 0.4em; margin-bottom: 0.4em; margin-top: 0.4em; margin-left: 0.4em; }
-	.bl-financiacion { margin-bottom: 0.4em; }	
+		.blck-logo img { width: 100%; height: auto; max-width: 165px; }
+	.bl-financiacion { margin-bottom: 0.4em; }
+.bl-financiacion-slide { display: none; }
+	.bl-financiacion-slide-0 { display: block; }
 @media (min-width: 900px) { /* menu plegado */
 	.bl-aliados-sct { width: 33%; padding: 0 1em; float: left; }
 }
