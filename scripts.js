@@ -276,7 +276,7 @@
             }
           // } else if(scr < 3) {
           } else {
-            $('#queFix').filter(':not("shown")').addClass('shown').stop(false,false).fadeIn(1200).each(function(){
+            $('#queFix').filter(':not(".shown")').addClass('shown').stop(false,false).fadeIn(1200).each(function(){
               var $this = $(this).find('.blck-inn');
               var hIn = $this.height();
               $this.css('top', hIn < eiio.cache.wHeight ? (eiio.cache.wHeight - hIn) / 2 : 0);
