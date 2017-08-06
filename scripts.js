@@ -51,7 +51,7 @@
         eiio.resizeSlides();
         eiio.resizeProjs();
         eiio.resizeSlideTeam();
-        
+
         eiio.canvas.update();
       },
 
@@ -580,12 +580,12 @@
       resizeSlideTeam: function() {
 
         var $people = $('.bl-quienes-elm');
-
+console.log($people.length * 300, $people.length )
           // los elementos ocupan más que la pantalla => lanza el slide
-        if($people.length * $people.eq(0).width() > eiio.cache.wWidth) {
+        if($people.length * 300 > eiio.cache.wWidth) {
           
           if(!eiio.cache.teamSlider) {
-            $('.swiper-wrapper').width(10000);
+            $('.swiper-wrapper').width('100%');
             eiio.cache.teamSlider = new Swiper('.bl-quienes', {
                 freeMode: true,
                 slidesPerView: 'auto',
@@ -598,10 +598,9 @@
         } else {
 
           if(eiio.cache.teamSlider || eiio.cache.firstLoad) {
-            
+            $('.swiper-wrapper').width(10000);
             if(eiio.cache.teamSlider) eiio.cache.teamSlider.destroy(true, true);
             eiio.cache.teamSlider = null;
-            $('.swiper-wrapper').width($people.length * $people.eq(0).width());
             $('.bl-quienes').addClass('bl-quienes-centered');
           }
 
