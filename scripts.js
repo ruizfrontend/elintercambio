@@ -580,12 +580,16 @@
       resizeSlideTeam: function() {
 
         var $people = $('.bl-quienes-elm');
-console.log($people.length * 300, $people.length )
+
           // los elementos ocupan más que la pantalla => lanza el slide
         if($people.length * 300 > eiio.cache.wWidth) {
           
+          var elms = parseInt(eiio.cache.wWidth / 240, 10);
+          $people.width(eiio.cache.wWidth / elms);
+          
+          $('.swiper-wrapper').width(10000);
+
           if(!eiio.cache.teamSlider) {
-            $('.swiper-wrapper').width('100%');
             eiio.cache.teamSlider = new Swiper('.bl-quienes', {
                 freeMode: true,
                 slidesPerView: 'auto',
@@ -593,12 +597,16 @@ console.log($people.length * 300, $people.length )
                 prevButton: '#quienes .swiper-button-prev',
             });
             $('.bl-quienes').removeClass('bl-quienes-centered');
+          } else {
+            
+            eiio.cache.teamSlider.update();
+
           }
 
         } else {
 
           if(eiio.cache.teamSlider || eiio.cache.firstLoad) {
-            $('.swiper-wrapper').width(10000);
+            $('.swiper-wrapper').width($people.length * 300);
             if(eiio.cache.teamSlider) eiio.cache.teamSlider.destroy(true, true);
             eiio.cache.teamSlider = null;
             $('.bl-quienes').addClass('bl-quienes-centered');
