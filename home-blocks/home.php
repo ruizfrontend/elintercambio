@@ -4,9 +4,10 @@
 		<h2>Periodismo de ruptura</h2>
 	</div>
 </div>
-<div class="slide-home slide-home-2" data-img="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/bg-22.jpg" style="background: url(<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/bg-2.jpg) center center; background-size: cover;"></div>
-<div class="slide-home slide-home-3" data-img="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/bg-3.jpg"></div>
+<div class="slide-home slide-home-2" data-img="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/08/compRompe2.jpg" style="background: url(<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/07/bg-2.jpg) center center; background-size: cover;"></div>
+<div class="slide-home slide-home-3" data-img="<?php echo $projData['homeUrl'] ?>/wp-content/uploads/2017/08/codeBigRsz2.jpg"></div>
 <div class="slide-home slide-home-4"></div>
+
 
 <div class="canvas-wrap">
 	<div id="launch" ><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></div>
