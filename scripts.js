@@ -263,7 +263,7 @@
 
             for (var i = 0; i < target.data.length; i += 4) {
 
-              var fxPercent = (scr - 1.1) / 0.9;
+              var fxPercent = (scr - 1.3) / 0.7;
 
               var currH = parseInt(i / (4 * w), 10);
               var currW = (i - (currH * 4 * w)) / 4;
