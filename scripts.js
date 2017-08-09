@@ -623,10 +623,12 @@
         var $people = $('.bl-quienes-elm');
 
           // los elementos ocupan más que la pantalla => lanza el slide
-        if($people.length * 300 > eiio.cache.wWidth) {
+        var elms = parseInt(eiio.cache.wWidth / 220, 10);
+        var elmWidth = eiio.cache.wWidth / elms;
+
+        if($people.length * elmWidth > eiio.cache.wWidth) {
           
-          var elms = parseInt(eiio.cache.wWidth / 220, 10);
-          $people.width(eiio.cache.wWidth / elms);
+          $people.width(elmWidth);
           
           $('.swiper-wrapper').width(10000);
 
@@ -646,7 +648,8 @@
 
         } else {
 
-          $('.swiper-wrapper').width($people.length * 300);
+          $('.swiper-wrapper').width($people.length * 220);
+          $people.width(220);
 
           if(eiio.cache.teamSlider || eiio.cache.firstLoad) {
             if(eiio.cache.teamSlider) eiio.cache.teamSlider.destroy(true, true);
