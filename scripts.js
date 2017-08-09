@@ -11,6 +11,8 @@
         wHeight: 0,
         teamSlider: null,
         projsSlider: null,
+        publishSlider: null,
+        financeSlider: null,
         firstLoad: true,
         responsive: false
       },
@@ -51,6 +53,7 @@
         eiio.resizeSlides();
         eiio.resizeProjs();
         eiio.resizeSlideTeam();
+        eiio.resizeSlideAllies();
 
         eiio.canvas.update();
       },
@@ -576,6 +579,44 @@
 
       },
 
+      resizeSlideAllies: function() {
+
+        var $financia = $('.bl-financiacion-slide');
+        var $publish = $('.bl-publish-slide');
+      
+        if($financia.length) {
+          
+          $('.bl-financiacion-slide').show().width($('.bl-financiacion').width());
+
+          if(!eiio.cache.financeSlider) {
+            eiio.cache.financeSlider = new Swiper('.bl-financiacion', {
+                freeMode: true,
+                slidesPerView: 1,
+                nextButton: '.bl-financiacion .swiper-button-next',
+                prevButton: '.bl-financiacion .swiper-button-prev',
+            });
+          } else {
+            eiio.cache.financeSlider.update();
+          }
+        }
+
+        if($publish.length) {
+          
+          $('.bl-publish-slide').show().width($('.bl-publish').width());
+
+          if(!eiio.cache.publishSlider) {
+            eiio.cache.publishSlider = new Swiper('.bl-publish', {
+                slidesPerView: 'auto',
+                nextButton: '.bl-publish .swiper-button-next',
+                prevButton: '.bl-publish .swiper-button-prev',
+            });
+          } else {
+            eiio.cache.publishSlider.update();
+          }
+        }
+
+      },
+
         // lanza el carrusel de equipo o lo destruye en función del tamaño de página
       resizeSlideTeam: function() {
 
@@ -584,7 +625,7 @@
           // los elementos ocupan más que la pantalla => lanza el slide
         if($people.length * 300 > eiio.cache.wWidth) {
           
-          var elms = parseInt(eiio.cache.wWidth / 240, 10);
+          var elms = parseInt(eiio.cache.wWidth / 220, 10);
           $people.width(eiio.cache.wWidth / elms);
           
           $('.swiper-wrapper').width(10000);
@@ -605,8 +646,9 @@
 
         } else {
 
+          $('.swiper-wrapper').width($people.length * 300);
+
           if(eiio.cache.teamSlider || eiio.cache.firstLoad) {
-            $('.swiper-wrapper').width($people.length * 300);
             if(eiio.cache.teamSlider) eiio.cache.teamSlider.destroy(true, true);
             eiio.cache.teamSlider = null;
             $('.bl-quienes').addClass('bl-quienes-centered');

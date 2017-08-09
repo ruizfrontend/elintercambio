@@ -53,7 +53,7 @@
 		<div class="bl-proy-main">
 			<h4>Tenemos muchos proyectos en camino<br>Mantente al tanto de todas las actualizaciones en nuestras redes sociales:</h4>
 			<ul class="bl-quienes-social">
-				<li><a target="_blank" href="https://twitter.com/elintercambio" title="Perfil completo en Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a target="_blank" href="https://twitter.com/_El_InterCambio" title="Perfil completo en Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
 				<li><a target="_blank" href="https://www.facebook.com/ElIntercambioPeriodismo" title="Perfil completo en Facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
 			</ul>
 		</div>
