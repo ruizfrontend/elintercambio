@@ -138,7 +138,10 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 		a.bl-proy-elm-goto { font-size: 0.8em; text-decoration: underline; }
 			a.bl-proy-elm-goto i { padding-right: 0.6em; }
 
-.bl-proyectos-empty { text-align: center; font-size: 1.5em; }
+.bl-proyectos-empty { text-align: center; font-size: 1.5em; padding: 2.4em 0 1.8em 0; background-size: cover; }
+	.bl-proyectos-empty h4, .bl-proyectos-empty p { margin: 0 0 0.5em 0; }
+	.bl-proyectos-empty .bl-quienes-social { padding: 0.8em 0; margin: 0;  }
+		.bl-proyectos-empty .bl-quienes-social li a  { font-size: 1.4em; padding: 0 0.1em; }
 
 @media (min-width: 900px) { /* menu plegado */
 	.bl-proy-elm-text { font-size: 1.4em; }

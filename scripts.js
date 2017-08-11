@@ -83,7 +83,7 @@
       resizeSlides: function() {
 
             // resize sections
-        $('#Intro, #que, #quienes, #whom, .slide-home, .canvas-wrap').each(function(){
+        $('#Intro, #que, #quienes, #whom, .slide-home, .canvas-wrap, #portfolio').each(function(){
           
           var $this = $(this).css('min-height', eiio.cache.wHeight);
           var h = $this.height();
