@@ -28,19 +28,22 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 
 	/* menu */
 #menu { height: 90px; background: #5c6068; }
+	.sticky-wrapper { background: #d5ceba; }
 	.sticky-wrapper #menu { background: #d5ceba; }
 	#menu.stuck { position: fixed; width: 100%; left: 0; top: 0; z-index: 10; background: none; }
 	#menu-wrap { height: 100%; }
 
 	#menu a { color: white;text-decoration: none; display: inline-block; padding: 1.5em 1em; line-height: 3em; text-transform: uppercase; font-weight: 300;
-		-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
+			-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
+		/*#menu a::after { display: block; content: attr(title); font-weight: bold; height: 1px; color: transparent; overflow: hidden; visibility: hidden; }*/
+		#menu .menu-left a { padding: 1.5em 1em 0 1em; }
 	#menu-wrap-inn-white a { color: #333; }
 		#menu a.act { font-weight: 900; }
 
 	#menu-wrap-inn, #menu-wrap-inn-white { position: absolute; top: 0; width: 100%;
 		-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
-	#menu-wrap-inn { color: white; opacity: 1; } /* background: #2b2d30; */
-	#menu-wrap-inn-white { color: #333; opacity: 0; } /* background: #d5ceba;  */
+	#menu-wrap-inn { color: white; opacity: 1; background: #2b2d30; }
+	#menu-wrap-inn-white { color: #333; opacity: 0; background: #d5ceba; }
 	#menu.menu-light #menu-wrap-inn { opacity: 0; }
 	#menu.menu-light #menu-wrap-inn-white { opacity: 1; }
 	.menu-left { float: left; z-index: 20; position: relative; }
@@ -53,8 +56,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 @media (min-width: 900px) { /* menu plegado */
 	.menu-right { display: block!important; }
 	#menu .menu-right-wrap { -webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; opacity: 1; }
-	#menu.hidden .menu-right-wrap { opacity: 0; }
-	#menu:hover .menu-right-wrap { opacity: 1; }
+	/* #menu.hidden .menu-right-wrap { opacity: 0; }
+	#menu:hover .menu-right-wrap { opacity: 1; } */
 }
 @media (max-width: 900px) {
 	#menu .ham { display: block; float: right; font-size: 2em; line-height: 1em; padding: 0.8em 0.4em; z-index: 20; position: relative; }
@@ -68,8 +71,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 @media (max-width: 850px) { /* menu mini */
 	#menu .menu-right-wrap a { width: 100%; padding: 0; line-height: 2em; }
 	.menu-right-wrap { padding-bottom: 1em; }
-	#menu.stuck { background: rgba(213, 206, 186, 0.2); }
-	#menu.menu-light.stuck { background: rgba(92, 96, 104, 0.2); }
+	#menu.stuck { background: rgba(213, 206, 186, 0.7); }
+	#menu.menu-light.stuck { background: rgba(92, 96, 104, 0.7); }
 }
 
 

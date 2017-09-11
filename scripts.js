@@ -96,6 +96,8 @@
 
         });
 
+        $('.slide-home-4').css('min-height', eiio.cache.wHeight * 0.7);
+
           // el camvas hay que fijar el tamaño como attributo
         $('#homeCanvas').attr('height', eiio.cache.wHeight).attr('width', eiio.cache.wWidth);
 
@@ -150,7 +152,7 @@
 
           if(scr > 0.1) $('#launch').fadeOut(400);
 
-          if(scr > 4) return;
+          if(scr > 3.5) return;
 
           eiio.canvas.cache.cvctx.putImageData(eiio.canvas.generaImg(scr), 0, 0);
         },
@@ -210,7 +212,7 @@
               target.data[i+3] = pixels.data[i+1 - (desplaza * 4)];
             }
 
-          } else if(scr < 1) { // paso 3: plano fijo
+          } else if(scr < .9) { // paso 3: plano fijo
             $('#queFix').filter('.shown').removeClass('shown').stop(false,false).hide();
 
             for (var i = 0; i < target.data.length; i += 4) {
@@ -220,7 +222,26 @@
               
               var currW = (i - (currH * 4 * w)) / 4;
 
-              var desplaza = 5;
+              var desplaza = 10;
+              if(currW < desplaza) continue;
+
+              target.data[i] = pixels.data[i - (desplaza * 4)];
+              target.data[i+1] = pixels.data[i+1 - (desplaza * 4)];
+              target.data[i+2] = pixels.data[i+1 - (desplaza * 4)];
+              target.data[i+3] = pixels.data[i+1 - (desplaza * 4)];
+            }
+          } else if(scr < 1) { // fade logo
+
+            var fxPercent = 1 - ((scr - 0.9) * 10);
+
+            for (var i = 0; i < target.data.length; i += 4) {
+
+              var currH = parseInt(i / (4 * w), 10);
+              if(currH > ((eiio.canvas.cache.rH * 0.59) + eiio.canvas.cache.dy) || currH < ((eiio.canvas.cache.rH * 0.524) + eiio.canvas.cache.dy)) continue;
+              
+              var currW = (i - (currH * 4 * w)) / 4;
+
+              var desplaza = 10;
               if(currW < desplaza) continue;
 
               target.data[i] = pixels.data[i - (desplaza * 4)];
@@ -229,7 +250,13 @@
               target.data[i+3] = pixels.data[i+1 - (desplaza * 4)];
             }
 
+            for (var i = 0; i < target.data.length; i += 4) {
+
+              target.data[i+3] = target.data[i+3] * fxPercent;
+            }
+
           } else if(scr < 1.1) { // paso 4: máquina fade
+
             $('#queFix').filter('.shown').removeClass('shown').stop(false,false).hide();
 
             for (var i = 0; i < target.data.length; i += 4) {
@@ -586,7 +613,7 @@
       
         if($financia.length) {
           
-          $('.bl-financiacion-slide').show().width($('.bl-financiacion').width());
+          $financia.show().width($('.bl-financiacion').width());
 
           if(!eiio.cache.financeSlider) {
             eiio.cache.financeSlider = new Swiper('.bl-financiacion', {
@@ -602,7 +629,7 @@
 
         if($publish.length) {
           
-          $('.bl-publish-slide').show().width($('.bl-publish').width());
+          $publish.show().width($('.bl-publish').width());
 
           if(!eiio.cache.publishSlider) {
             eiio.cache.publishSlider = new Swiper('.bl-publish', {

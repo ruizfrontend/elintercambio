@@ -10,7 +10,7 @@
 
 
 <div class="canvas-wrap">
-	<div id="launch" ><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></div>
+	<div id="launch" ><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
 	<div id="queFix" ><?php include(get_template_directory() . '/home-blocks/queFix.php'); ?></div>
 	<canvas id="homeCanvas"></canvas>
 </div>
