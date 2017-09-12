@@ -19,7 +19,7 @@ Theme Name: eiio
 
 
 /* Aquí empieza lo bueno */ 
-body { overflow-x: hidden; }
+body { overflow-x: hidden; background: #d5ceba; }
 body, .ft-lato { font-family: 'Lato', sans-serif; font-weight: 300; }
 
 h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
@@ -27,9 +27,9 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 #main, #menu-wrap { width: 100%; margin: 0 auto; position: relative; } /* max-width: 1300px;  */
 
 	/* menu */
-#menu { height: 90px; background: #5c6068; }
-	.sticky-wrapper { background: #d5ceba; }
-	.sticky-wrapper #menu { background: #d5ceba; }
+#menu { height: 90px; }
+	/*.sticky-wrapper { background: #d5ceba; }*/
+	/*.sticky-wrapper #menu { background: #d5ceba; }*/
 	#menu.stuck { position: fixed; width: 100%; left: 0; top: 0; z-index: 10; background: none; }
 	#menu-wrap { height: 100%; }
 
@@ -42,10 +42,10 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 
 	#menu-wrap-inn, #menu-wrap-inn-white { position: absolute; top: 0; width: 100%;
 		-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
-	#menu-wrap-inn { color: white; opacity: 1; background: #2b2d30; }
-	#menu-wrap-inn-white { color: #333; opacity: 0; background: #d5ceba; }
-	#menu.menu-light #menu-wrap-inn { opacity: 0; }
-	#menu.menu-light #menu-wrap-inn-white { opacity: 1; }
+	#menu-wrap-inn { color: white; opacity: 0; background: #2b2d30; }
+	#menu-wrap-inn-white { color: #333; opacity: 1; background: #d5ceba; }
+	#menu.menu-dark #menu-wrap-inn { opacity: 1; }
+	#menu.menu-dark #menu-wrap-inn-white { opacity: 0; }
 	.menu-left { float: left; z-index: 20; position: relative; }
 	.menu-right { float: right; }
 	#menu .ham { display: none; }
@@ -71,8 +71,8 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 @media (max-width: 850px) { /* menu mini */
 	#menu .menu-right-wrap a { width: 100%; padding: 0; line-height: 2em; }
 	.menu-right-wrap { padding-bottom: 1em; }
-	#menu.stuck { background: rgba(213, 206, 186, 0.7); }
-	#menu.menu-light.stuck { background: rgba(92, 96, 104, 0.7); }
+	/*#menu.stuck { background: rgba(213, 206, 186, 0.7); }*/
+	/*#menu.menu-light.stuck { background: rgba(92, 96, 104, 0.7); }*/
 }
 
 
@@ -297,7 +297,9 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 		#queFix.shown #que p { opacity: 1; }
 	#queFix #que p:last-child { opacity: 0; -webkit-transition: all 1s linear 2.8s; -o-transition: all 1s linear 2.8s; transition: all 1s linear 2.8s;}
 		#queFix.shown #que p:last-child { opacity: 1; }
-
+#que { background: #5c6068; color: white; }
+	#que h2 span { color: white; }
+	#que .hd-l2-wrap span { background: #d5ceba; color: #353637; }
 
 @media (max-width: 500px) {
 	#que { font-size: 0.9em; }
@@ -321,4 +323,4 @@ h1, h2, h3, h4, .ft-ubuntu { font-family: 'Ubuntu', sans-serif; }
 		-webkit-transition: all 1s; -o-transition: all 1s; transition: all 1s; opacity: 0; }
 .canvas-wrap.normal { position: absolute; }
 
-#launch { position: absolute; width: 100%; bottom: 2em; font-size: 2.4em; text-align: center; cursor: pointer; }
+#launch { position: absolute; width: 100%; bottom: 2em; font-size: 2.4em; text-align: center; cursor: pointer; color: white; }

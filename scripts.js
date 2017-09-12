@@ -447,9 +447,9 @@
 
               // Alterna CSS 
           if($actSect.hasClass('blck-light')){
-              $('#menu').addClass('menu-light');
+              $('#menu').removeClass('menu-dark');
           } else {
-              $('#menu').removeClass('menu-light');
+              $('#menu').addClass('menu-dark');
           }
 
           var id = $actSect.attr('id');
